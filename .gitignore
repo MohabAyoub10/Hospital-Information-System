@@ -5,7 +5,7 @@ migrations
 __pycache__/
 *.pyc
 *.pyo
-
+static
 Pipfile
 Pipfile.lock
 files/
