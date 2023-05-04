@@ -23,7 +23,7 @@ class Doctor(models.Model):
     specialty = models.ForeignKey(Specialty,related_name='doctor_specialty',on_delete=models.CASCADE)
     medical_license = models.CharField(max_length=255)
     department = models.ForeignKey(Department,related_name='doctor_department',on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='Hospital/files/media')
+    image = models.ImageField(blank=1,null=1,upload_to='Hospital/files/media')
     
     def mediaAdmin(self):
         return mark_safe('<img src="{}" width="100" />'.format(self.image.url))

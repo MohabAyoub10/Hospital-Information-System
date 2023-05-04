@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_writable_nested import WritableNestedModelSerializer
 from .models import *
-from Core.serializer import UserSerializer,UserCreateSerializer,UpdateUserSerializer
+from Core.serializer import UserSerializer,UserCreateSerializer
 from Core.models import User
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -22,10 +22,10 @@ class SpecialtySerializer(serializers.ModelSerializer):
 class DoctorSerializer(serializers.ModelSerializer):
     specialty = SpecialtySerializer()
     department = DepartmentSerializer()
-    user = UserSerializer()
+    user = UserSerializer(read_only=1)
     class Meta:
         model = Doctor
-        fields = ['id','user','specialty','medical_license','department','image']
+        fields = ['id','user','medical_license','specialty','department','image']
 
 class CreateDoctorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,15 +36,14 @@ class UpdateDoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
         fields = ['user','specialty','medical_license','department','image']
-    specialty = SpecialtySerializer()
-    department = DepartmentSerializer()
-    user = UpdateUserSerializer
+        read_only_fields = ['user',]
+
 
 
 class NurseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nurse
-        fields = ['user','specialty','medical_license']
+        fields = ['id','user','specialty','medical_license']
 
 class MedicalSecretarySerializer(serializers.ModelSerializer):
     class Meta:
@@ -69,12 +68,12 @@ class CreatePatientSerializer(WritableNestedModelSerializer,serializers.ModelSer
     address = AddressSerializer()
     class Meta:
         model = Patient
-        fields = ['user','id','address']
-    #user = UserCreateSerializer()
+        fields = ['id','user','address']
+
 
 class UpdatePatientSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     address = AddressSerializer()
     class Meta:
         model = Patient
-        fields = ['user','id','address']
-    user = UpdateUserSerializer()
+        fields = ['id','user','address']
+        read_only_fields = ['user',]

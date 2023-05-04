@@ -17,26 +17,25 @@ from rest_framework.filters import SearchFilter
 class DoctorViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend,SearchFilter]
     search_fields = ['department__dapartment_name']
-    filterset_fields = ['department__dapartment_name']
+    filterset_fields = ['department__dapartment_name','specialty__specialty']
     queryset = Doctor.objects.select_related('user').select_related('department').select_related('specialty').all()
     permission_classes = [IsAdminOrReadOnly]
     
     def get_serializer_class(self):
         if self.request.user.is_staff:
             return CreateDoctorSerializer
+        elif self.request.user.role == 'doctor':
+            return UpdateDoctorSerializer
         return DoctorSerializer
 
         
-    @action(detail=False,methods=['GET','PATCH'],permission_classes=[IsDoctor])
+    @action(detail=False,methods=['GET','PUT'],permission_classes=[IsDoctor])
     def me (self,request):
-        try:
-            doctor = Doctor.objects.get(user_id=request.user.id)   
-        except Doctor.DoesNotExist:
-            return Response('ok')
+        doctor = Doctor.objects.get(user_id=request.user.id)   
         if request.method == 'GET':
             serializer = DoctorSerializer(doctor)
             return Response(serializer.data)
-        elif request.method == 'PATCH' :
+        elif request.method == 'PUT' :
             serializer =UpdateDoctorSerializer(doctor,data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -59,17 +58,19 @@ class PatientViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.user.role == 'admin' or self.request.user.role == 'receptionist':
             return CreatePatientSerializer
+        elif self.request.user.role == 'patient':
+            return UpdatePatientSerializer
         return PatientSerializer
  
         
-    @action(detail=False,methods=['GET','PATCH'],permission_classes=[IsPatient])
+    @action(detail=False,methods=['GET','PUT'],permission_classes=[IsPatient])
     def me (self,request):
 
         patient = Patient.objects.get(user_id=request.user.id)    
         if request.method == 'GET':
             serializer = PatientSerializer(patient)
             return Response(serializer.data)
-        elif request.method == 'PATCH' or request.method == 'PUT':
+        elif  request.method == 'PUT':
             serializer = UpdatePatientSerializer(patient,data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
