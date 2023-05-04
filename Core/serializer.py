@@ -9,15 +9,8 @@ class UserCreateSerializer(BaseUserCreateSerializer):
         fields = ['id','username','password','email','first_name','last_name','phone_1','phone_2','gender','national_id'] 
 
 class UserSerializer(serializers.ModelSerializer):
-    username=serializers.CharField(read_only=True)
     class Meta:
         model = User
-        fields = ['id','username','first_name','last_name','phone_1','phone_2','email','gender','national_id']
+        fields = ['id','username','first_name','last_name','phone_1','phone_2','email','gender','national_id','birth_date','role']
+        read_only_fields = ['username','role']
     
-class UpdateUserSerializer(serializers.ModelSerializer):
-    # username=serializers.CharField(read_only=True)
-    # email=serializers.EmailField(read_only=True)
-    # national_id=serializers.CharField(read_only=True)
-    class Meta:
-        model = User
-        fields = ['first_name','last_name','phone_1','phone_2','email','gender']
