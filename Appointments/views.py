@@ -59,14 +59,14 @@ class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_doctor:
-            return BookedAppointment.objects.filter(doctor=user)
-        elif user.is_patient:
-            return BookedAppointment.objects.filter(patient=user)
-        elif user.is_receptionist:
+        if user.role == 'doctor':
+            return BookedAppointment.objects.filter(doctor__user=user)
+        elif user.role == 'patient':
+            return BookedAppointment.objects.filter(patient__user=user)
+        elif user.role == 'receptionist':
             return BookedAppointment.objects.all()
         else:
-            return BookedAppointment.objects.none()
-
-
+            return BookedAppointment.objects.all()
+         
+    
 
