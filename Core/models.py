@@ -37,6 +37,7 @@ class User(AbstractUser):
     phone_2 = PhoneNumberField(blank=1,null=1)
     gender = models.CharField(max_length=1,choices=genders,null=1,blank=1)
     national_id = models.CharField(max_length=14,unique=1,null=1,blank=1)
+    birth_date = models.DateField(null=1,blank=1)
     role = models.CharField(max_length=255,choices=user_types,default=patient)
 
     
