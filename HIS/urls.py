@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('hospital/',include('Hospital.urls')),
     path('records/',include('Records.urls')),
+    path('lab-radiology/',include('Lab_Radiology.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('',include('Core.urls')),
 ]
