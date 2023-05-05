@@ -30,10 +30,10 @@ class ExamRequest(models.Model):
         (COMPLETED, 'Completed'),
         (CANCELLED, 'Cancelled'),
     ]
-    exams = models.ManyToManyField(ExamsList, through='ExamDetails')
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient')
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='doctor')
-    appointment = models.ForeignKey(BookedAppointment, on_delete=models.CASCADE, related_name='appointment')
+    exams = models.ManyToManyField(ExamsList)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_exame')
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='doctor_exame')
+    appointment = models.ForeignKey(BookedAppointment, on_delete=models.CASCADE, related_name='appointment_exame')
     status = models.CharField(max_length=255, choices=STATUS, default=REQUESTED)
     dateTime = models.DateTimeField(default=datetime.now)
     comment = models.TextField(blank=True)
@@ -54,9 +54,9 @@ class RadiologyResultDetails(models.Model):
 
 
 class TestResult(models.Model):
-    Request = models.ForeignKey(ExamRequest, on_delete=models.CASCADE,related_name='radiolgy_request')
-    exam = models.ForeignKey(ExamsList, on_delete=models.CASCADE, related_name='radiology_exam')
-    dateTime = models.DateTimeField(default=datetime.now)
+    Request = models.ForeignKey(ExamRequest, on_delete=models.CASCADE,related_name='Lab_request')
+    exam = models.ForeignKey(ExamsList, on_delete=models.CASCADE, related_name='Lab_exam')
+
 
 class TestResultDetails(models.Model):
     result = models.ForeignKey(TestResult, on_delete=models.CASCADE, related_name='radiology_result')
