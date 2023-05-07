@@ -1,7 +1,6 @@
 from django.db import models
 from Appointments.models import BookedAppointment
 from Hospital.models import Patient
-from Pharmacy.models import CurrentMedication
 from Lab_Radiology.models import ExamRequest
 
 
@@ -39,7 +38,7 @@ class ExamService(models.Model):
 class MedicineService(models.Model):
 
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE,related_name='MedicineService')
-    medication = models.ForeignKey(CurrentMedication, on_delete=models.CASCADE,related_name='MedicineService')
+    #medication = models.ForeignKey(CurrentMedication, on_delete=models.CASCADE,related_name='MedicineService')
 
 
 
