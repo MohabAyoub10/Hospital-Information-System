@@ -20,9 +20,9 @@ class Address(models.Model):
 
 class Doctor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_doctor')
-    specialty = models.ForeignKey(Specialty,related_name='doctor_specialty',on_delete=models.CASCADE)
+    specialty = models.ForeignKey(Specialty,related_name='doctor_specialty',on_delete=models.CASCADE,null=1)
     medical_license = models.CharField(max_length=255)
-    department = models.ForeignKey(Department,related_name='doctor_department',on_delete=models.CASCADE)
+    department = models.ForeignKey(Department,related_name='doctor_department',on_delete=models.CASCADE,null=1)
     image = models.ImageField(blank=1,null=1,upload_to='Hospital/files/media')
     
     def mediaAdmin(self):
@@ -33,12 +33,12 @@ class Doctor(models.Model):
 
 class Nurse(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_nurse')
-    specialty = models.ForeignKey(Specialty,related_name='nurse_specialty',on_delete=models.CASCADE)
+    specialty = models.ForeignKey(Specialty,related_name='nurse_specialty',on_delete=models.CASCADE,null=1)
     medical_license = models.CharField(max_length=255)
     
 class Patient(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_patient')
-    address = models.ForeignKey(Address,related_name='patient_address',on_delete=models.CASCADE)
+    address = models.ForeignKey(Address,related_name='patient_address',on_delete=models.CASCADE,null=1)
     # def __str__(self) -> str:
     #     return str(self.user.first_name+" "+self.user.last_name)
     
