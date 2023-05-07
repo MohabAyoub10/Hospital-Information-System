@@ -29,4 +29,5 @@ urlpatterns = [
     path('lab-radiology/',include('Lab_Radiology.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('',include('Core.urls')),
+    path('pharmacy', include('Pharmacy.urls')),
 ]
