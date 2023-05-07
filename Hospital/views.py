@@ -11,10 +11,11 @@ from .serializer import *
 from .permissions import *
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from .customviewset import CustomModelViewSet
 # Create your views here.
 
         
-class DoctorViewSet(ModelViewSet):
+class DoctorViewSet(CustomModelViewSet):
     filter_backends = [DjangoFilterBackend,SearchFilter]
     search_fields = ['department__dapartment_name']
     filterset_fields = ['department__dapartment_name','specialty__specialty']
@@ -43,12 +44,12 @@ class DoctorViewSet(ModelViewSet):
         
 
 
-class NurseViewSet(ModelViewSet):
+class NurseViewSet(CustomModelViewSet):
     queryset = Nurse.objects.select_related('user').all()
     serializer_class = NurseSerializer
     permission_classes = [IsAdminUser]
 
-class PatientViewSet(ModelViewSet):
+class PatientViewSet(CustomModelViewSet):
     filter_backends = [DjangoFilterBackend,SearchFilter,]
     search_fields = ['user__first_name','user__last_name']
     filterset_fields = ['user__first_name','user__last_name']
@@ -91,13 +92,13 @@ class AddressViewSet(ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
 
-class MedicalSecretaryViewSet(ModelViewSet):
+class MedicalSecretaryViewSet(CustomModelViewSet):
     queryset = MedicalSecretary.objects.select_related('user').all()
     serializer_class = MedicalSecretarySerializer
     permission_classes = [IsAdminUser]
 
     
-class ReceptionistViewSet(ModelViewSet):
+class ReceptionistViewSet(CustomModelViewSet):
     queryset = Receptionist.objects.select_related('user').all()
     serializer_class =ReceptionistSerializer 
     permission_classes = [IsAdminUser]
