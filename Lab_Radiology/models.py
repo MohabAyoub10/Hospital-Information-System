@@ -61,5 +61,9 @@ class TestResult(models.Model):
     comment = models.TextField(blank=True)
 
 
-class LabRadiologyStaff(models.Model):
+class RadiologyStaff(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+class LabStaff(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
