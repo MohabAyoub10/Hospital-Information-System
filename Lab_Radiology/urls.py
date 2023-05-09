@@ -11,7 +11,6 @@ router.register('radiology-results', RadiologyResultsViewSet, basename='radiolog
 router.register('radiology-result-details', RadiologyResultDetailsViewSet, basename='radiology-result-details')
 router.register('test-result', TestResultViewSet, basename='test-result')
 
-
 urlpatterns = [
 
     path('', include(router.urls)),
