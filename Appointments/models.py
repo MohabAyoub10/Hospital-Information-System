@@ -56,3 +56,9 @@ class BookedAppointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+
+class DoctorAppointmentsDetails(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT,related_name='doctor_appointment_details')
+    schedule = models.ForeignKey(DoctorSchedule, on_delete=models.PROTECT,related_name='schedule_appointment_details')
+    date = models.DateField()
+    total_appointments = models.PositiveIntegerField(default=0)

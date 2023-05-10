@@ -13,3 +13,4 @@ admin.site.register(Slot)
 
 admin.site.register(BookedAppointment)
 
+admin.site.register(DoctorAppointmentsDetails)
