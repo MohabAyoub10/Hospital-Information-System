@@ -2,6 +2,11 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import *
 from  datetime import timedelta
+from django.core.mail import send_mail
+from django.conf import settings
+from pprint import pprint
+from django.template.loader import render_to_string
+from .templates import *
 
 
 def converter(time):
@@ -24,4 +29,29 @@ def create_slots(sender, instance,created, **kwargs):
 
 @receiver(post_delete, sender=DoctorSchedule)
 def delete_slots(sender, instance, **kwargs):
-    Slot.objects.filter(schedule_id=instance.pk).delete()     
+    Slot.objects.filter(schedule_id=instance.pk).delete()
+
+
+
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+from .models import BookedAppointment, DoctorAppointmentsDetails
+
+@receiver(post_save, sender=BookedAppointment)
+def create_appointments_records(sender, instance, created, **kwargs):
+    if created:
+        details, created = DoctorAppointmentsDetails.objects.get_or_create(doctor=instance.doctor, date=instance.date, schedule=instance.slot.schedule)
+        details.total_appointments += 1
+        details.save()
+
+@receiver(post_delete, sender=DoctorAppointmentsDetails)
+def cancel_all_booked_appointments(sender, instance, **kwargs):
+    booking = BookedAppointment.objects.filter(doctor=instance.doctor, date=instance.date)
+    send_cansellation_email('mohab.ayoub10@gmail.com')
+    pprint(booking[0].patient.user.email)
+
+
+
+def send_cansellation_email(email):
+    render_temp = render_to_string('mail.html', {'email': 'bla bla bla'})
+    send_mail("Appointment Cansellation", render_temp,settings.EMAIL_HOST_USER,['sarahdarweesh2006@gmail.com'], fail_silently=False)
