@@ -72,6 +72,7 @@ class RadiolgyResultDetailsSerializer(ModelSerializer):
 
 class RadiologyResultSerializer(ModelSerializer):
     radiology_result = RadiolgyResultDetailsSerializer(many=True)
+    exam = ExamsListSerializer()
     class Meta:
         model = RadiologyResult
         fields = ['id', 'exam', 'radiology_result']
