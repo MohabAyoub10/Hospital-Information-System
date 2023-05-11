@@ -38,7 +38,7 @@ class ExamRequestViewSet(ModelViewSet):
 
 
 class RadiologyResultsViewSet(ModelViewSet):
-    queryset = RadiologyResult.objects.select_related('Request','Request__patient__user','Request__doctor__user').select_related('Request__appointment').select_related('exam').prefetch_related('Request__exams').all()
+    queryset = RadiologyResult.objects.select_related('Request','Request__patient__user','Request__doctor__user').select_related('Request__appointment').select_related('exam').prefetch_related('Request__exams').prefetch_related('radiology_result').all()
     permission_classes = [CanViewOrEditOrCreatRadiologyResult]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['Request','Request__patient', 'exam']
