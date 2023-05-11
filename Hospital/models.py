@@ -46,7 +46,7 @@ class Patient(models.Model):
         return self.__str__()
     
 class Receptionist(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='receptionist')
     # def __str__(self) -> str:
     #     return str(self.user.first_name+" "+self.user.last_name)
     
