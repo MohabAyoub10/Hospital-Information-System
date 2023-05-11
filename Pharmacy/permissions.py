@@ -17,3 +17,12 @@ class IsDoctorOrReadonly(BasePermission):
 class IsReceptionistOrReadonly(BasePermission):
     def has_permission(self, request, view):
         return  request.user.role == 'receptionist' or request.method in ['GET', 'HEAD', 'OPTIONS']
+
+
+class IsDoctor(BasePermission):
+    def has_permission(self, request, view):
+        return  request.user.role == 'doctor'
+
+class IsPharmacist(BasePermission):
+    def has_permission(self, request, view):
+        return  request.user.role == 'pharmacist'
