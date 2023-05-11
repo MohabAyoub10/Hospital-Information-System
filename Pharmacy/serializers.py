@@ -16,20 +16,19 @@ class ViewerDrugSerializer(serializers.ModelSerializer):
 class DoctorPrescriptionItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrescriptionItems
-        fields = ['id', 'drug', 'amount', 'dose', 'duration']
+        fields = ['id', 'drug', 'amount', 'dose', 'duration', 'prescription']
 
-    def create(self, validated_data):
-        user_id = self.context['user_id']
-        prescription = Prescription.objects.filter(doctor=user_id).last()
-        prescription_items = PrescriptionItems.objects.create(prescription=prescription, **validated_data)
-        return prescription_items
+    # def create(self, validated_data):
+    #     prescription = validated_data.pop('prescription')
+
+    #     prescription_items = PrescriptionItems.objects.create(prescription=prescription, **validated_data)
+    #     return prescription_items
 
 class DoctorViewPrescriptionItemsSerializer(serializers.ModelSerializer):
     drug = serializers.StringRelatedField()
-    prescription = serializers.StringRelatedField()
     class Meta:
         model = PrescriptionItems
-        fields = ['id', 'drug', 'amount', 'dose', 'duration', 'prescription',]
+        fields = ['id', 'drug', 'amount', 'dose', 'duration']
 
 class DispensingPrescriptionItemsSerializer(serializers.ModelSerializer):
     drug = serializers.StringRelatedField()
@@ -61,9 +60,9 @@ class DoctorPrescriptionSerializer(serializers.ModelSerializer):
         fields = ['id', 'patient','date', 'notes', 'prescription' ]
     
     def create(self, validated_data):
-        user_id = self.context['user_id']
+        doctor_id = self.context['doctor_id']
         patient_id = validated_data.pop('patient')
-        doctor =User.objects.get(pk=user_id)
+        doctor =Doctor.objects.get(pk=doctor_id)
         prescription = Prescription.objects.create(doctor=doctor, patient=patient_id, **validated_data)
         return prescription
 
@@ -81,41 +80,82 @@ class PharmacistPrescriptionSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def update(self, instance, validated_data):
-        pharmacist = Pharmacist.objects.get(pk = self.context['user_id'])
+        pharmacist = Pharmacist.objects.get(pk = self.context['pharmacist_id'])
         instance.dispensed_by = pharmacist
         instance.dispensed_confirm = validated_data.get('dispensed_confirm', instance.dispensed_confirm)
+        instance.save()
         return instance
 
 class PharmacistViewerPrescriptionSerializer(serializers.ModelSerializer):
     prescription = DoctorViewPrescriptionItemsSerializer(many=True, read_only=True)
-    doctor = serializers.StringRelatedField()
-    patient = serializers.StringRelatedField()
+    patient = serializers.SerializerMethodField()
+    doctor = serializers.SerializerMethodField()
     class Meta:
         model = Prescription
         fields = ['id', 'doctor', 'patient', 'date', 'notes', 'dispensed_confirm','dispensed_by', 'prescription']
         read_only_fields = ['doctor', 'patient', 'date', 'notes']
+    def get_patient(self, obj):
+        patient= obj.patient 
+        return {
+        'first_name': patient.user.first_name,
+        'last_name': patient.user.last_name
+        }
+    def get_doctor(self, obj):
+        doctor= obj.doctor 
+        return {
+        'first_name': doctor.user.first_name,
+        'last_name': doctor.user.last_name
+        }
 class PharmacistSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
     class Meta:
         model = Pharmacist
-        fields = '__all__'
+        fields = ['id', 'name', 'user','license', ]
+        read_only_fields = ['user']
+    def get_name(self, obj):
+        return obj.user.first_name + ' ' + obj.user.last_name
 
 class DoctorViewerPrescriptionSerializer(serializers.ModelSerializer):
     prescription = DoctorViewPrescriptionItemsSerializer(many=True, read_only=True)
-    patient = serializers.StringRelatedField()
-    doctor = serializers.StringRelatedField()
+    patient = serializers.SerializerMethodField()
+    doctor = serializers.SerializerMethodField()
     class Meta:
         model = Prescription
         fields = ['id', 'patient','doctor','date', 'notes', 'prescription' ]
         read_only_fields = ['patient','doctor','date', 'notes', 'prescription' ]
+    def get_patient(self, obj):
+        patient= obj.patient 
+        return {
+        'first_name': patient.user.first_name,
+        'last_name': patient.user.last_name
+        }
+    def get_doctor(self, obj):
+        doctor= obj.doctor 
+        return {
+        'first_name': doctor.user.first_name,
+        'last_name': doctor.user.last_name
+        }
 
 class ReceptionistViewerPrescriptionSerializer(serializers.ModelSerializer):
     prescription = DispensingPrescriptionItemsSerializer(many=True)
-    patient = serializers.StringRelatedField()
-    doctor = serializers.StringRelatedField()
+    patient = serializers.SerializerMethodField()
+    doctor = serializers.SerializerMethodField()
     class Meta:
         model = Prescription
         fields = ['id', 'doctor', 'patient', 'date', 'notes', 'prescription']
         read_only_fields = ['doctor', 'patient', 'date', 'notes']
+    def get_patient(self, obj):
+        patient= obj.patient 
+        return {
+        'first_name': patient.user.first_name,
+        'last_name': patient.user.last_name
+        }
+    def get_doctor(self, obj):
+        doctor= obj.doctor 
+        return {
+        'first_name': doctor.user.first_name,
+        'last_name': doctor.user.last_name
+        }
 
 class ReceptionistPrescriptionSerializer(serializers.ModelSerializer):
     prescription = ReceptionistDispensingPrescriptionItemsSerializer(many=True)

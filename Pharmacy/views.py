@@ -30,19 +30,18 @@ class PharmacistViewSet(ModelViewSet):
 
 class PrescriptionItemsViewSet(ModelViewSet):
     pagination_class = CustomPagination
-    permission_classes = [IsDoctorOrReadonly]
+    permission_classes = [IsDoctor]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['dispensed']
     search_fields = ['drug__name']
-    queryset = PrescriptionItems.objects.all()
+    queryset = PrescriptionItems.objects.select_related('drug', 'prescription__patient').all()
     def get_serializer_class(self):
         if self.request.user.role == 'doctor' and self.request.method == 'POST':
             return DoctorPrescriptionItemsSerializer
         else:
             return DispensingPrescriptionItemsSerializer
     def get_serializer_context(self):
-        return {'user_id': 1} 
-    # !! change after migrate with main Project to get profile doctor id or user id
+        return {'doctor_id': self.request.user.user_doctor.id}
 
 
 # doctor and pharmacist and receptionist
@@ -52,38 +51,47 @@ class PrescriptionItemsViewSet(ModelViewSet):
 
 class DoctorPrescriptionViewSet(ModelViewSet):
     pagination_class = CustomPagination
-    permission_classes = [IsDoctorOrReadonly]
-    queryset = Prescription.objects.all()
+    permission_classes = [IsDoctor]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
+    def get_queryset(self):
+        doctor_id = self.request.user.user_doctor.id
+        return Prescription.objects \
+            .select_related('patient__user', 'doctor__user') \
+            .prefetch_related('prescription__drug') \
+                .filter(doctor=doctor_id).all()
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'POST']:
             return DoctorPrescriptionSerializer
         else:
             return DoctorViewerPrescriptionSerializer
     def get_serializer_context(self):
-        return {'user_id': 1}
+        return {'doctor_id': self.request.user.user_doctor.id}
 
 
 class PharmacistPrescriptionViewSet(NoPostViewSet):
     pagination_class = CustomPagination
-    permission_classes = [IsPharmacistOrReadonly]
-    queryset = Prescription.objects.all()
+    permission_classes = [IsPharmacist]
+    queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
+                .prefetch_related('prescription__drug').all()
     def get_serializer_class(self):
         if self.request.method in ['PUT']:
             return PharmacistPrescriptionSerializer
         else:
             return PharmacistViewerPrescriptionSerializer
     def get_serializer_context(self):
-        return {'user_id': 1}
+        return {'pharmacist_id': self.request.user.pharmacist.id}
 
 
 class ReceptionistPrescriptionViewSet(NoPostViewSet):
     pagination_class = CustomPagination
     permission_classes = [IsReceptionistOrReadonly]
-    queryset = Prescription.objects.all()
+    queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
+                .prefetch_related('prescription__drug').all()
     def get_serializer_class(self):
         if self.request.method in ['PUT']:
             return ReceptionistPrescriptionSerializer
         else:
             return ReceptionistViewerPrescriptionSerializer
     def get_serializer_context(self):
-        return {'user_id': 1}
+        return {'receptionist_id': self.request.user.receptionist.id}
