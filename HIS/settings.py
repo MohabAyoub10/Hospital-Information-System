@@ -91,12 +91,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HIS.wsgi.application'
 
-Email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+DEFAULT_FROM_EMAIL = 'mo.ayoub411@gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "mo.ayoub411@gmail.com"
-EMAIL_HOST_PASSWORD = 'khsipqzztwetrvzf'
 EMAIL_USE_TLS = True
+
+# Email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = "mo.ayoub411@gmail.com"
+# EMAIL_HOST_PASSWORD = 'khsipqzztwetrvzf'
+# EMAIL_USE_TLS = True
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

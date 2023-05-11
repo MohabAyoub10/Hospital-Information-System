@@ -47,11 +47,12 @@ def create_appointments_records(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=DoctorAppointmentsDetails)
 def cancel_all_booked_appointments(sender, instance, **kwargs):
     booking = BookedAppointment.objects.filter(doctor=instance.doctor, date=instance.date)
-    send_cansellation_email('mohab.ayoub10@gmail.com')
     pprint(booking[0].patient.user.email)
+    booking.delete()
+    send_cansellation_email('mohab.ayoub10@gmail.com')
 
 
 
 def send_cansellation_email(email):
-    render_temp = render_to_string('mail.html', {'email': 'bla bla bla'})
-    send_mail("Appointment Cansellation", render_temp,settings.EMAIL_HOST_USER,['sarahdarweesh2006@gmail.com'], fail_silently=False)
+    render_temp = render_to_string('mail.html', {'Patient': 'Mohabb'})
+    send_mail("Appointment Cansellation", '','hishospital521@gmail.com',['mo.ayoub411@gmail.com'],html_message=render_temp)
