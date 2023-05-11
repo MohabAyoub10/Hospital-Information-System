@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-# from Hospital.models import Patient,Doctor
+from Hospital.models import Patient,Doctor
 # from Appointments.models import BookedAppointment
 # Create your models here.
 
@@ -11,15 +11,13 @@ class BaseModel(models.Model):
         abstract = True
 
 class Prescription(BaseModel):
-    doctor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='doctorr')
-    patient = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='patientt')
+    doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT, related_name='doctor')
+    patient = models.ForeignKey(Patient, on_delete=models.PROTECT, related_name='patient')
     # appointment = models.ForeignKey(BookedAppointment,on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     notes = models.TextField()
     dispensed_by = models.ForeignKey('Pharmacist',on_delete=models.CASCADE, null=True, blank=True, related_name='dispensed_by')
     dispensed_confirm = models.BooleanField(default=False)
-    def __str__(self):
-        return f'{self.patient} - {self.date}'
 
 
 class Drug(BaseModel):
