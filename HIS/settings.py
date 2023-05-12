@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import environ
 from datetime import timedelta
 from pathlib import Path
 from  datetime import timedelta
@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-production-b18b.up.railway.app/']
 
+env = environ.Env()
+environ.Env.read_env()
 # Application definition
 
 INSTALLED_APPS = [
@@ -94,37 +96,18 @@ WSGI_APPLICATION = 'HIS.wsgi.application'
 DEFAULT_FROM_EMAIL = 'hishospital521@gmail.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# Email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = "mo.ayoub411@gmail.com"
-# EMAIL_HOST_PASSWORD = 'khsipqzztwetrvzf'
-# EMAIL_USE_TLS = True
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'his1',
-         'HOST': 'localhost',
-         'USER': 'root',
-         'PASSWORD': 'mohab123'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # Password validation
