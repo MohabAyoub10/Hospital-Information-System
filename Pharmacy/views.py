@@ -19,7 +19,7 @@ class DrugViewSet(ModelViewSet):
         else:
             return ViewerDrugSerializer
 
-class PharmacistViewSet(ModelViewSet):
+class PharmacistViewSet(NoPostViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsAdminOrReadonly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
