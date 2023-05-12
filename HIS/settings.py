@@ -169,6 +169,10 @@ SIMPLE_JWT = {
 }
  
 DJOSER = {
+    'PERMISSIONS':{
+        'user_create':['Core.permissions.IsAdminOrReceptionist'],
+        'user_list':['Core.permissions.IsAdminOrReceptionist'],
+    },
     'SERIALIZERS':{
         'user_create':'Core.serializer.UserCreateSerializer',
         'current_user':'Core.serializer.UserSerializer'
