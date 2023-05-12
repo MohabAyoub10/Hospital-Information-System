@@ -29,3 +29,9 @@ class BookAppointment(BasePermission):
                  return True
             return request.user.role in ['patient', 'receptionist']
         return False
+    
+
+class DoctorAppointmentPermission(BasePermission):
+    
+        def has_permission(self, request, view):
+            return is_admin_or_staff(request.user)
