@@ -88,3 +88,15 @@ class TestResultSerializer(ModelSerializer):
     class Meta:
         model = TestResult
         fields = '__all__'
+
+
+class LabStaffSerializer(ModelSerializer):
+    class Meta:
+        model = LabStaff
+        fields = ['id','user']
+
+
+class RadiologyStaffSerializer(ModelSerializer):
+    class Meta:
+        model = RadiologyStaff
+        fields = ['id','user']
