@@ -70,3 +70,10 @@ class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
          
     
 
+class DoctorAppointmentsDetailsViewSet(viewsets.ModelViewSet):
+    serializer_class = DoctorAppointmentSerializer
+    queryset = DoctorAppointmentsDetails.objects.select_related('doctor').all()
+    pagination_class = pagination.PageNumberPagination
+    permission_classes = [DoctorAppointmentPermission]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = '__all__'
