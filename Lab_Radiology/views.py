@@ -4,9 +4,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import pagination
 from rest_framework import exceptions
 from rest_framework import filters
+from rest_framework.permissions import IsAdminUser
+from rest_framework.filters import SearchFilter
 from .models import *
 from .permissions import *
 from .serializers import *
+from .custom_viewset import CustomModelViewSet
+
 
 
 
@@ -70,3 +74,19 @@ class TestResultViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveMo
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['Request__patient','Request', 'exam']
     pagination_class = pagination.PageNumberPagination
+
+
+class RadiologyStaffViewSet(CustomModelViewSet):
+    permission_classes = [IsAdminUser]
+    filter_backends = [SearchFilter]
+    search_fields = ['user__first_name','user__last_name']
+    queryset = RadiologyStaff.objects.select_related('user').all()
+    serializer_class = RadiologyStaffSerializer
+
+
+class LabStaffViewSet(CustomModelViewSet):
+    permission_classes = [IsAdminUser]
+    filter_backends = [SearchFilter]
+    search_fields = ['user__first_name','user__last_name']
+    queryset = LabStaff.objects.select_related('user').all()
+    serializer_class = LabStaffSerializer
