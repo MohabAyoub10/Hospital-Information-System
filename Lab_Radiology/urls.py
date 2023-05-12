@@ -10,7 +10,8 @@ router.register('exam-request', ExamRequestViewSet, basename='exam-request')
 router.register('radiology-results', RadiologyResultsViewSet, basename='radiology-results')
 router.register('radiology-result-details', RadiologyResultDetailsViewSet, basename='radiology-result-details')
 router.register('test-result', TestResultViewSet, basename='test-result')
-
+router.register('lab-staff', LabStaffViewSet, basename='lab-staff')
+router.register('radiology-staff', RadiologyStaffViewSet, basename='radiology-staff')
 urlpatterns = [
 
     path('', include(router.urls)),
