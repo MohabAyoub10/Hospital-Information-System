@@ -1,6 +1,7 @@
 # Ignore Django migrations
 migrations
 db.sqlite3
+.env
 # Ignore Python cache files
 __pycache__/
 *.pyc
