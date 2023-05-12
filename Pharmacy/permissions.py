@@ -26,3 +26,8 @@ class IsDoctor(BasePermission):
 class IsPharmacist(BasePermission):
     def has_permission(self, request, view):
         return  request.user.role == 'pharmacist'
+
+
+class IsReceptionist(BasePermission):
+    def has_permission(self, request, view):
+        return  request.user.role == 'receptionist'

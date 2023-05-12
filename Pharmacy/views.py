@@ -85,7 +85,7 @@ class PharmacistPrescriptionViewSet(NoPostViewSet):
 
 class ReceptionistPrescriptionViewSet(NoPostViewSet):
     pagination_class = CustomPagination
-    permission_classes = [IsReceptionistOrReadonly]
+    permission_classes = [IsReceptionist]
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
                 .prefetch_related('prescription__drug').all()
     def get_serializer_class(self):
