@@ -91,7 +91,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HIS.wsgi.application'
 
-DEFAULT_FROM_EMAIL = 'mo.ayoub411@gmail.com'
+DEFAULT_FROM_EMAIL = 'hishospital521@gmail.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = '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'
