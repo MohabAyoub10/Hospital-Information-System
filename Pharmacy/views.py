@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .serializers import *
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -70,7 +70,7 @@ class PharmacistPrescriptionViewSet(NoPostViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
-                .prefetch_related('prescription__drug').all()
+                .prefetch_related('prescription__drug').filter(dispensed_status='send_to_pharmacy').all()    
     def get_serializer_class(self):
         if self.request.method in ['PUT']:
             return PharmacistPrescriptionSerializer
@@ -87,7 +87,7 @@ class ReceptionistPrescriptionViewSet(NoPostViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
-                .prefetch_related('prescription__drug').all()
+                .prefetch_related('prescription__drug').filter(dispensed_status='requested').all()
     def get_serializer_class(self):
         if self.request.method in ['PUT']:
             return ReceptionistPrescriptionSerializer
@@ -95,3 +95,19 @@ class ReceptionistPrescriptionViewSet(NoPostViewSet):
             return ReceptionistViewerPrescriptionSerializer
     def get_serializer_context(self):
         return {'receptionist_id': self.request.user.receptionist.id}
+
+
+class PatientPrescriptionViewSet(ReadOnlyModelViewSet):
+    pagination_class = PageNumberPagination
+    permission_classes = [IsPatient]
+    filter_backends = [SearchFilter]
+    search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
+    def get_queryset(self):
+        patient_id = self.request.user.user_patient.id
+        return Prescription.objects \
+            .select_related('patient__user', 'doctor__user') \
+            .prefetch_related('prescription__drug') \
+                .filter(patient=patient_id).all()
+    serializer_class = DoctorViewerPrescriptionSerializer
+    def get_serializer_context(self):
+        return {'patient_id': self.request.user.user_patient.id}

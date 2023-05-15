@@ -5,6 +5,7 @@ router = DefaultRouter()
 
 router.register('drug', DrugViewSet, basename='drug')
 router.register('doctor-prescription', DoctorPrescriptionViewSet, basename='doctor-prescription')
+router.register('patient-prescription', PatientPrescriptionViewSet, basename='patient-prescription')
 router.register('pharmacist-prescription', PharmacistPrescriptionViewSet, basename='pharmacist-prescription')
 router.register('receptionist-prescription', ReceptionistPrescriptionViewSet, basename='receptionist-prescription')
 router.register('pharmacist', PharmacistViewSet, basename='pharmacist')
