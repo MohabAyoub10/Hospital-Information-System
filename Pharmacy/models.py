@@ -12,13 +12,21 @@ class BaseModel(models.Model):
         abstract = True
 
 class Prescription(BaseModel):
+    requested = 'requested'
+    dispensed = 'dispensed'
+    send_to_pharmacy = 'send_to_pharmacy'
+    status_choices = [
+        (requested, 'requested'),
+        (dispensed, 'dispensed'),
+        (send_to_pharmacy, 'send_to_pharmacy'),
+    ]
     doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT, related_name='doctor')
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT, related_name='patient')
     appointment = models.ForeignKey(BookedAppointment,on_delete=models.CASCADE, related_name='appointment', null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     notes = models.TextField()
-    dispensed_by = models.ForeignKey(Receptionist,on_delete=models.CASCADE, null=True, blank=True, related_name='dispensed_by')
-    dispensed_confirm = models.BooleanField(default=False)
+    dispensed_by = models.ForeignKey('Pharmacist', on_delete=models.CASCADE, null=True, blank=True, related_name='dispensed_by')
+    dispensed_status = models.CharField(max_length=20, choices=status_choices, default=requested)
 
 
 class Drug(BaseModel):
