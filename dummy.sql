@@ -1133,11 +1133,11 @@ INSERT INTO Pharmacy_drug (id, created_at, updated_at, name, company, price, sto
 INSERT INTO Pharmacy_pharmacist (id, created_at, updated_at, license, user_id) VALUES (1, '1683784175000', '1683784178000', 'd', 27);
 
 
-INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_confirm, dispensed_by_id, doctor_id, patient_id) VALUES (1, '2023-05-11 03:56:47.929969', '2023-05-11 05:08:51.744527', '2023-05-11', 'this is our first patient', 1, 1, 11, 1);
-INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_confirm, dispensed_by_id, doctor_id, patient_id) VALUES (2, '2023-05-11 04:16:49.006968', '2023-05-11 04:16:49.006968', '2023-05-11', 'this is our second patient', 0, null, 12, 1);
-INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_confirm, dispensed_by_id, doctor_id, patient_id) VALUES (3, '2023-05-11 04:24:48.139744', '2023-05-11 05:14:48.920316', '2023-05-11', 'test 4', 1, 1, 11, 2);
-INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_confirm, dispensed_by_id, doctor_id, patient_id) VALUES (4, '2023-05-11 05:10:50.117961', '2023-05-11 05:15:03.214979', '2023-05-11', 'this is our test 5', 1, 1, 11, 1);
-INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_confirm, dispensed_by_id, doctor_id, patient_id) VALUES (5, '2023-05-11 05:17:05.621553', '2023-05-11 05:17:05.621553', '2023-05-11', '111', 0, null, 11, 1);
+INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_status, dispensed_by_id, doctor_id, patient_id) VALUES (1, '2023-05-11 03:56:47.929969', '2023-05-11 05:08:51.744527', '2023-05-11', 'this is our first patient', 1, 1, 11, 1);
+INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_status, dispensed_by_id, doctor_id, patient_id) VALUES (2, '2023-05-11 04:16:49.006968', '2023-05-11 04:16:49.006968', '2023-05-11', 'this is our second patient', 0, null, 12, 1);
+INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_status, dispensed_by_id, doctor_id, patient_id) VALUES (3, '2023-05-11 04:24:48.139744', '2023-05-11 05:14:48.920316', '2023-05-11', 'test 4', 1, 1, 11, 2);
+INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_status, dispensed_by_id, doctor_id, patient_id) VALUES (4, '2023-05-11 05:10:50.117961', '2023-05-11 05:15:03.214979', '2023-05-11', 'this is our test 5', 1, 1, 11, 1);
+INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, dispensed_status, dispensed_by_id, doctor_id, patient_id) VALUES (5, '2023-05-11 05:17:05.621553', '2023-05-11 05:17:05.621553', '2023-05-11', '111', 0, null, 11, 1);
 
 
 INSERT INTO Pharmacy_prescriptionitems (id, created_at, updated_at, dose, duration, amount, dispensed, drug_id, prescription_id) VALUES (1, '2023-05-11 04:09:53.761252', '2023-05-11 04:09:53.761252', '11', '11', 11, 0, 1, 1);
