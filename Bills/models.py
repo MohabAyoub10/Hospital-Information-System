@@ -1,8 +1,9 @@
 from django.db import models
 from Appointments.models import BookedAppointment
 from Hospital.models import Patient
-from Lab_Radiology.models import ExamRequest
+from Lab_Radiology.models import ExamRequest, ExamsList
 from django.core.validators import MinValueValidator, MaxValueValidator
+from Pharmacy.models import *
         
 PERCENTAGE_VALIDATOR = [MinValueValidator(0), MaxValueValidator(100)]
 
@@ -26,18 +27,9 @@ class Bill(models.Model):
     time_date = models.DateTimeField(auto_now_add=True)
     insurance = models.ForeignKey(InsuranceDetails, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
     appointment = models.ForeignKey(BookedAppointment, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
-    
-
-class ExamService(models.Model):
-
-    bill = models.ForeignKey(Bill, on_delete=models.CASCADE,related_name='ExamService')
-    exam_request = models.ForeignKey(ExamRequest, on_delete=models.CASCADE,related_name='ExamService')
-
-
-
-class MedicineService(models.Model):
-
-    bill = models.ForeignKey(Bill, on_delete=models.CASCADE,related_name='MedicineService')
+    examrequest = models.ForeignKey(ExamRequest, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     
 
 
