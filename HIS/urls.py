@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Appointments/',include('Appointments.urls')),
+    path('appointments/',include('Appointments.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('hospital/',include('Hospital.urls')),
