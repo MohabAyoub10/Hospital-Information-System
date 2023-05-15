@@ -6,11 +6,11 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
 
 class AdminUserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id','username','password','email','first_name','last_name','phone_1','phone_2','gender','national_id','role'] 
+        fields = ['id','username','password','email','first_name','last_name','phone_1','phone_2','gender','birth_date','national_id','role'] 
 
 class UserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id','username','password','email','first_name','last_name','phone_1','phone_2','gender','national_id'] 
+        fields = ['id','username','password','email','first_name','last_name','phone_1','phone_2','gender','birth_date','national_id'] 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
