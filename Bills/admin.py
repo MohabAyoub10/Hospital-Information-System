@@ -4,7 +4,5 @@ from .models import *
 
 admin.site.register(InsuranceDetails)
 admin.site.register(Bill)
-admin.site.register(ExamService)
-admin.site.register(MedicineService)
 
 
