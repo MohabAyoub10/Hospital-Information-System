@@ -4,12 +4,21 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 def is_admin_or_staff(user):
     return user.is_authenticated and user.role in ['admin', 'receptionist', 'doctor']
 
-
+def is_receptionist(user):
+    return user.is_authenticated and user.role == 'receptionist'
+def is_patient(user):
+    return user.is_authenticated and user.role == 'patient'
+def is_doctor(user):
+    return user.is_authenticated and user.role == 'doctor'
 class CanAccess(BasePermission):
 
     def has_permission(self, request, view):
-        return is_admin_or_staff(request.user) and request.user.role == 'patient'
-
+        if request.user.is_authenticated:
+            if request.method in SAFE_METHODS and request.user.role in ['patient', 'receptionist', 'doctor']:
+                 return True
+            else:
+                return False
+        return False
 
 class CreateDoctorScheduleOrUpdate(BasePermission):
 
@@ -18,7 +27,9 @@ class CreateDoctorScheduleOrUpdate(BasePermission):
             return True
         elif request.method in SAFE_METHODS and request.user.role == 'patient' and request.user.is_authenticated:
             return True
-        return is_admin_or_staff(request.user) and request.user.role == 'receptionist'
+        elif request.method == 'POST' and is_receptionist(request.user):
+            return True
+        return False
 
 
 class BookAppointment(BasePermission):
@@ -34,4 +45,5 @@ class BookAppointment(BasePermission):
 class DoctorAppointmentPermission(BasePermission):
     
         def has_permission(self, request, view):
-            return is_admin_or_staff(request.user)
+            if request.user.is_authenticated and request.method in SAFE_METHODS:
+                return request.user.role in ['doctor', 'receptionist']
