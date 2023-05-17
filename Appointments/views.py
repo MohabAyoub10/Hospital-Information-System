@@ -50,7 +50,6 @@ class DoctorSlotsViewSet(ListModelMixin, viewsets.GenericViewSet):
 
 class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
     serializer_class = BookedAppoitnmentSerializer
-    queryset = BookedAppointment.objects.all()
     pagination_class = pagination.PageNumberPagination
     permission_classes = [BookAppointment]
     sorted_by = '__all__'
@@ -60,13 +59,13 @@ class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'doctor':
-            return BookedAppointment.objects.filter(doctor__user=user)
+            return BookedAppointment.objects.select_related('doctor__user', 'patient__user', 'slot','slot__schedule').filter(doctor__user=user)
         elif user.role == 'patient':
-            return BookedAppointment.objects.filter(patient__user=user)
+            return BookedAppointment.objects.select_related('doctor__user', 'patient__user', 'slot','slot__schedule').filter(patient__user=user)
         elif user.role == 'receptionist':
-            return BookedAppointment.objects.all()
+            return BookedAppointment.objects.select_related('doctor__user', 'patient__user', 'slot','slot__schedule').all()
         else:
-            return BookedAppointment.objects.all()
+            return BookedAppointment.objects.select_related('doctor__user', 'patient__user', 'slot','slot__schedule').all()
         
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT', 'PATCH']:
