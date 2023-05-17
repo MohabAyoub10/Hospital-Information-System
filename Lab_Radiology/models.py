@@ -21,6 +21,7 @@ class ExamsList(models.Model):
 class ExamRequest(models.Model):
     REQUESTED = 'Requested'
     PENDING = 'Pending'
+    waiting_for_result = 'Waiting for result'
     COMPLETED = 'Completed'
     CANCELLED = 'Cancelled'
 
