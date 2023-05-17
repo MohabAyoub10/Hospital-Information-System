@@ -10,8 +10,10 @@ from decimal import Decimal
 @receiver(post_save, sender=BookedAppointment)
 def create_bill_service(sender, instance, **kwargs):
     if instance.status == 'waiting':
-        bill = Bill.objects.create(patient=instance.patient, appointment=instance)
-        bill.save()
+        if not Bill.objects.filter(patient=instance.patient, appointment=instance).exists():
+            bill = Bill.objects.create(patient=instance.patient, appointment=instance)
+            bill.total = instance.slot.schedule.price
+            bill.save()
 
 
 
