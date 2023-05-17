@@ -127,19 +127,33 @@ class PatientAllRecordrSerializer(serializers.ModelSerializer):
     
     def get_vitals(self,obj):
         vitals = obj.patient_vital.all()
-        return VitalSerializer(vitals,many=True).data
+        if vitals.count() > 0:
+            return VitalSerializer(vitals,many=True).data
+        else :
+            return ('This person has no vitals')
+
     
     def get_visits(self,obj):
         visits = obj.inpatient.all()
-        return VisitsSerializer(visits,many=True).data
+        if visits.count() > 0:
+            return VisitsSerializer(visits,many=True).data
+        else :
+            return ('This person has no visits')
+
     
     def get_surgeries(self,obj):
         surgeries = obj.patient_surgery.all()
-        return SurgeryInfoSerializer(surgeries,many=True).data
+        if surgeries.count() > 0:
+            return SurgeryInfoSerializer(surgeries,many=True).data
+        else :
+            return ('This person has no surgeries')
     
     def get_medical_record(self,obj):
-        medical_record = obj.patient_record
-        return MedicalRecordSerializer(medical_record).data
+        try: 
+            medical_record = obj.patient_record
+            return MedicalRecordSerializer(medical_record).data
+        except MedicalRecord.DoesNotExist:
+            return ('This person has no medical record')
     
 
 
