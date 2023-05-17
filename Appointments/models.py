@@ -12,7 +12,7 @@ days = [
     ('Friday', 'Friday')
     ]
 
-appointment_status = [('pend', 'pending'), ('comp', 'completed'), ('canc', 'cancelled')]
+appointment_status = [('pending', 'pending'), ('completed', 'completed'), ('cancelled', 'cancelled'),('waiting', 'waiting')]
 Schedule_Status = [('active', 'active'), ('inactive', 'inactive')]
 
 appointment_duration = [(10, 10), (15, 15), (20, 20), (25, 25), (30, 30), (35, 35), (40, 40), (45, 45), (50, 50), (55, 55), (60, 60)]
@@ -52,7 +52,7 @@ class BookedAppointment(models.Model):
     slot = models.ForeignKey(Slot, on_delete=models.PROTECT,related_name='slot_appointment')
     date = models.DateField()
     type = models.CharField(max_length=10, choices=type_of_appointment)
-    status = models.CharField(max_length=5, choices=appointment_status)
+    status = models.CharField(max_length=10, choices=appointment_status)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
