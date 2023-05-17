@@ -6,6 +6,7 @@ from Lab_Radiology.models import ExamRequest
 from Appointments.models import BookedAppointment
 from .models import Bill, InsuranceDetails
 from Lab_Radiology.models import ExamRequest, ExamsList
+from Pharmacy.models import PrescriptionItems, Prescription
 
 class PatientSerializer(ModelSerializer):
     user = StringRelatedField()
@@ -61,15 +62,35 @@ class CreateInsuranceDetailsSerializer(ModelSerializer):
         model = InsuranceDetails
         fields = '__all__'
 
+class PrescriptionItemsSerializer(serializers.ModelSerializer):
+    drug = serializers.SerializerMethodField()
+    class Meta:
+        model = PrescriptionItems
+        fields = ['id', 'drug', 'dispensed']
+    
+    def get_drug(self, obj):
+        drug= obj.drug 
+        return {
+        'name': drug.name,
+        'price': drug.price,
+        }
+    
+class PrescriptionSerializer(serializers.ModelSerializer):
+    prescription = PrescriptionItemsSerializer(many=True)
+    class Meta:
+        model = Prescription
+        fields = ['id', 'date', 'notes', 'dispensed_status','dispensed_by', 'prescription']
+        read_only_fields = ['date', 'notes']
 
 class BillsSerializer(serializers.ModelSerializer):
     patient = PatientSerializer()
     insurance = InsuranceDetailsSerializer()
     appointment = AppointmentsSerializer()
     examrequest = ExamRequestSerializer()
+    prescription = PrescriptionSerializer()
     class Meta:
         model = Bill
-        fields = ['patient', 'appointment', 'examrequest','insurance','time_date', 'total']
+        fields = ['patient', 'appointment', 'examrequest','prescription', 'insurance','time_date', 'total']
 
 
 class CreateBillsSerializer(serializers.ModelSerializer):
