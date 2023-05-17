@@ -15,7 +15,7 @@ class CanViewOrEdit(BasePermission):
     
     def has_permission(self, request, view):
             if request.user.is_authenticated:
-                if request.method in SAFE_METHODS and  request.user.role in ['doctor', 'radiologist','lab','patient']:
+                if request.method in SAFE_METHODS and  request.user.role in ['doctor', 'radiologist','lab','patient','receptionist']:
                     return True
                 elif request.method in ['POST','DELETE'] and request.user.role in ['doctor']:
                     return True
