@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from .permissions import *
 
 
 
@@ -16,6 +17,7 @@ from rest_framework.filters import SearchFilter
 class InsuranceDetailsViewSet(viewsets.ModelViewSet):
     queryset = InsuranceDetails.objects.all()
     filter_backends = [DjangoFilterBackend]
+    permission_classes = [CreateOrEditOrDeleteInsuranceDetails]
     filterset_fields = ['patient','patient__user__username', 'company', 'number']
 
 
@@ -29,6 +31,7 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
 class BillsViewSet(viewsets.ModelViewSet):
     queryset = Bill.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
+    permission_classes = [BillPermission]
     filterset_fields = ['patient','patient__user__username', 'appointment']
     search_fields = ['patient__user__username']
 
@@ -37,9 +40,6 @@ class BillsViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return CreateBillsSerializer
         return BillsSerializer
-
-
-
     
 
     
