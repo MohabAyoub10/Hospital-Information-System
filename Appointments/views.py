@@ -49,7 +49,7 @@ class DoctorSlotsViewSet(ListModelMixin, viewsets.GenericViewSet):
 
 
 class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
-    serializer_class = BookedAppoitnmentSerilizer
+    serializer_class = BookedAppoitnmentSerializer
     queryset = BookedAppointment.objects.all()
     pagination_class = pagination.PageNumberPagination
     permission_classes = [BookAppointment]
@@ -67,7 +67,11 @@ class BookedAppoitnmentViewSet(viewsets.ModelViewSet):
             return BookedAppointment.objects.all()
         else:
             return BookedAppointment.objects.all()
-         
+        
+    def get_serializer_class(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
+            return CreateAppointmentSerializer
+        return BookedAppoitnmentSerializer
     
 
 class DoctorAppointmentsDetailsViewSet(viewsets.ModelViewSet):
