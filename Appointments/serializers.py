@@ -12,6 +12,16 @@ class DoctorSerializer(ModelSerializer):
     user = StringRelatedField()
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
+
+class PatientSerializer(ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ['id','user', 'first_name', 'last_name']
+
+    user = StringRelatedField()
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+
 class DoctorScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = DoctorSchedule
@@ -27,10 +37,14 @@ class DoctorScheduleSerializer(serializers.ModelSerializer):
     
     
 
-
+class DoctorSchedulePriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorSchedule
+        fields = ['id','price']
     
 
 class DoctorSlotsSerializer(serializers.ModelSerializer):
+    schedule = DoctorSchedulePriceSerializer()
     class Meta:
         model = Slot
         fields = ['id','start_time','end_time','schedule']
@@ -38,14 +52,19 @@ class DoctorSlotsSerializer(serializers.ModelSerializer):
 
 
 
-class BookedAppoitnmentSerilizer(serializers.ModelSerializer):
+class BookedAppoitnmentSerializer(serializers.ModelSerializer):
+    patient = PatientSerializer()
+    doctor = DoctorSerializer()
+    slot = DoctorSlotsSerializer()
     class Meta:
         model = BookedAppointment
         fields = ['id','patient','doctor','slot','date','type','status']
 
 
-
-
+class CreateAppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookedAppointment
+        fields = ['id','patient','doctor','slot','date','type','status']
 
 
 class DoctorAppointmentSerializer(serializers.ModelSerializer):
