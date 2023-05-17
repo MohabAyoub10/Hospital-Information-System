@@ -4,6 +4,15 @@ from .models import *
 from Lab_Radiology.models import *
 from Pharmacy.models import *
 from pprint import pprint 
+from decimal import Decimal
+
+
+@receiver(post_save, sender=BookedAppointment)
+def create_bill_service(sender, instance, **kwargs):
+    if instance.status == 'waiting':
+        bill = Bill.objects.create(patient=instance.patient, appointment=instance)
+        bill.save()
+
 
 
 @receiver(post_save, sender=ExamRequest)
@@ -16,12 +25,11 @@ def create_exam_service(sender, instance, **kwargs):
         bill.save()
 
 
-# @receiver(post_save, sender=Prescription)
-# def create_prescription_service(sender, instance, **kwargs):
-#     if instance.dispensed_confirm == True:
-#         bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
-#         bill.prescription = instance
-#         for item in instance.prescription.all():
-#             pprint(item.drug.price)
-#             bill.total += item.drug.price
-#         bill.save()
+@receiver(post_save, sender=Prescription)
+def create_prescription_service(sender, instance, **kwargs):
+    if instance.dispensed_status == 'send_to_pharmacy':
+        bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        bill.prescription = instance
+        for item in instance.prescription.all():
+            bill.total += Decimal(item.drug.price)
+        bill.save()
