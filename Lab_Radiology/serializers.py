@@ -98,7 +98,7 @@ class TestResultByRequestSerializer(ModelSerializer):
 
     class Meta:
         model = ExamRequest
-        fields = ['id', 'Lab_request', 'patient', 'doctor',]
+        fields = ['id', 'Lab_request', 'patient', 'doctor']
 
 class CreateTestResult(ModelSerializer):
     class Meta:
