@@ -64,6 +64,8 @@ class RadiologyResultDetailsViewSet(GenericViewSet, mixins.ListModelMixin, mixin
     search_fields = ['comment']
     pagination_class = pagination.PageNumberPagination
 
+    
+
 
 
 
@@ -105,3 +107,17 @@ class TestResutlByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.R
     pagination_class = pagination.PageNumberPagination
 
     
+class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    serializer_class = RadiologyResultByRequestSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status', 'patient', 'doctor','exams__type']
+    pagination_class = pagination.PageNumberPagination
+
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == 'patient':
+            return ExamRequest.objects.prefetch_related('exams','radiolgy_request','radiolgy_request__exam','radiolgy_request__radiology_result').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient=user)
+        else :
+            return ExamRequest.objects.none()
+        

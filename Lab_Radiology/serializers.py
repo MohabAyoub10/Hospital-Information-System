@@ -75,13 +75,24 @@ class RadiologyResultSerializer(ModelSerializer):
     exam = ExamsListSerializer()
     class Meta:
         model = RadiologyResult
-        fields = ['id', 'exam', 'radiology_result']
+        fields = ['id', 'exam','report_file' ,'radiology_result',]
 
+
+class RadiologyResultByRequestSerializer(ModelSerializer):
+    radiolgy_request = RadiologyResultSerializer(many=True)
+    patient = PatientSerializer()
+    doctor = DoctorSerializer()
+
+    class Meta:
+        model = ExamRequest
+        fields = ['id', 'radiolgy_request', 'patient', 'doctor']
 
 class CreateRadiologyResult(ModelSerializer):
     class Meta:
         model = RadiologyResult
         fields = '__all__'
+
+
 
 
 class TestResultSerializer(ModelSerializer):
