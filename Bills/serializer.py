@@ -46,7 +46,7 @@ class AppointmentsSerializer(ModelSerializer):
 
     class Meta:
         model = BookedAppointment
-        fields = ['id', 'date', 'doctor']
+        fields = ['id', 'date', 'doctor','slot__schedule__price']
 
 
 class InsuranceDetailsSerializer(ModelSerializer):
