@@ -29,7 +29,6 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
 
 
 class BillsViewSet(viewsets.ModelViewSet):
-    queryset = Bill.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
     permission_classes = [BillPermission]
     filterset_fields = ['patient','patient__user__username', 'appointment']
@@ -40,6 +39,15 @@ class BillsViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return CreateBillsSerializer
         return BillsSerializer
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == 'patient':
+            return Bill.objects.filter(patient=user.patient)
+        elif user.role == 'receptionist':
+            return Bill.objects.all()
+        else:
+            return Bill.objects.none()
     
 
     
