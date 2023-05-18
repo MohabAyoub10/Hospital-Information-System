@@ -12,6 +12,7 @@ router.register('radiology-result-details', RadiologyResultDetailsViewSet, basen
 router.register('test-result', TestResultViewSet, basename='test-result')
 router.register('lab-staff', LabStaffViewSet, basename='lab-staff')
 router.register('radiology-staff', RadiologyStaffViewSet, basename='radiology-staff')
+router.register('test-resutlsss', TestResutlByRequestViewSet, basename='test-resutlsss')
 urlpatterns = [
 
     path('', include(router.urls)),

@@ -85,6 +85,22 @@ class CreateRadiologyResult(ModelSerializer):
 
 
 class TestResultSerializer(ModelSerializer):
+    exam = ExamsListSerializer()
+    class Meta:
+        model = TestResult
+        fields = ['Request', 'exam', 'dateTime', 'pdf_result', 'comment']
+
+
+class TestResultByRequestSerializer(ModelSerializer):
+    Lab_request = TestResultSerializer(many=True)
+    patient = PatientSerializer()
+    doctor = DoctorSerializer()
+
+    class Meta:
+        model = ExamRequest
+        fields = ['id', 'Lab_request', 'patient', 'doctor',]
+
+class CreateTestResult(ModelSerializer):
     class Meta:
         model = TestResult
         fields = '__all__'

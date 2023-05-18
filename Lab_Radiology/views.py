@@ -70,10 +70,15 @@ class RadiologyResultDetailsViewSet(GenericViewSet, mixins.ListModelMixin, mixin
 class TestResultViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,mixins.CreateModelMixin):
     queryset = TestResult.objects.all()
     permission_classes = [CanViewOrEditOrCreatLabResult]
-    serializer_class = TestResultSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['Request__patient','Request', 'exam']
     pagination_class = pagination.PageNumberPagination
+
+
+    def get_serializer_class(self):
+        if self.request.method in SAFE_METHODS:
+           return TestResultSerializer
+        else: return CreateTestResult
 
 
 class RadiologyStaffViewSet(CustomModelViewSet):
@@ -90,3 +95,13 @@ class LabStaffViewSet(CustomModelViewSet):
     search_fields = ['user__first_name','user__last_name']
     queryset = LabStaff.objects.select_related('user').all()
     serializer_class = LabStaffSerializer
+
+
+class TestResutlByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    queryset = ExamRequest.objects.prefetch_related('exams','Lab_request','Lab_request__exam').select_related('appointment','patient__user','doctor__user',).filter(status='Completed')
+    serializer_class = TestResultByRequestSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status', 'patient', 'doctor','exams__type']
+    pagination_class = pagination.PageNumberPagination
+
+    
