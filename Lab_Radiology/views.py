@@ -56,7 +56,7 @@ class RadiologyResultsViewSet(ModelViewSet):
 
 
 class RadiologyResultDetailsViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,mixins.CreateModelMixin):
-    queryset = RadiologyResultDetails.objects.prefetch_related('radiology_result').all()
+    queryset = RadiologyResultDetails.objects.select_related('result').all()
     permission_classes = [CanViewOrEditOrCreatRadiologyResult]
     serializer_class = RadiolgyResultDetailsSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
