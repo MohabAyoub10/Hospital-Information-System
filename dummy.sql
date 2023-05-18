@@ -1143,3 +1143,195 @@ INSERT INTO Pharmacy_prescription (id, created_at, updated_at, date, notes, disp
 INSERT INTO Pharmacy_prescriptionitems (id, created_at, updated_at, dose, duration, amount, dispensed, drug_id, prescription_id) VALUES (1, '2023-05-11 04:09:53.761252', '2023-05-11 04:09:53.761252', '11', '11', 11, 0, 1, 1);
 INSERT INTO Pharmacy_prescriptionitems (id, created_at, updated_at, dose, duration, amount, dispensed, drug_id, prescription_id) VALUES (2, '2023-05-11 04:12:27.072635', '2023-05-11 04:12:27.072635', '1', '1', 1, 0, 1, 1);
 INSERT INTO Pharmacy_prescriptionitems (id, created_at, updated_at, dose, duration, amount, dispensed, drug_id, prescription_id) VALUES (3, '2023-05-11 05:16:51.557125', '2023-05-11 05:16:51.557125', '1', '1', 1, 0, 1, 1);
+
+
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (1, 'Creatine Kinase', 'Laboratory', 'LAB039', 310.71);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (2, 'D-Dimer', 'Laboratory', 'LAB003', 80.3);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (3, 'Insulin', 'Laboratory', 'LAB042', 247.07);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (4, 'D-Dimer', 'Laboratory', 'LAB004', 90.08);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (5, 'Lipid Panel', 'Laboratory', 'LAB006', 362.46);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (6, 'Activated Partial Thromboplastin Time', 'Laboratory', 'LAB013', 221.05);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (7, 'Vitamin B12', 'Laboratory', 'LAB005', 232.75);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (8, 'Follicle Stimulating Hormone', 'Laboratory', 'LAB047', 96.34);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (9, 'Insulin', 'Laboratory', 'LAB033', 370.32);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (10, 'Lipid Panel', 'Laboratory', 'LAB025', 307.85);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (11, 'Transferrin', 'Laboratory', 'LAB032', 55.98);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (12, 'Bicarbonate', 'Laboratory', 'LAB025', 406.29);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (13, 'Alanine Aminotransferase', 'Laboratory', 'LAB021', 372.43);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (14, 'Gamma-Glutamyl Transferase', 'Laboratory', 'LAB003', 438.97);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (15, 'Globulin', 'Laboratory', 'LAB025', 323.23);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (16, 'Insulin', 'Laboratory', 'LAB023', 132.12);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (17, 'Alkaline Phosphatase', 'Laboratory', 'LAB017', 426.25);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (18, 'Fibrinogen', 'Laboratory', 'LAB029', 271.82);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (19, 'Total Protein', 'Laboratory', 'LAB023', 426.47);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (20, 'Lactate Dehydrogenase', 'Laboratory', 'LAB041', 180.25);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (21, 'Erythrocyte Sedimentation Rate', 'Laboratory', 'LAB003', 332.09);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (22, 'Phosphorus', 'Laboratory', 'LAB004', 275.87);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (23, 'Troponin', 'Laboratory', 'LAB048', 436.66);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (24, 'Luteinizing Hormone', 'Laboratory', 'LAB015', 393.91);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (25, 'Urinalysis', 'Laboratory', 'LAB042', 362.86);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (26, 'Aspartate Aminotransferase', 'Laboratory', 'LAB048', 399.78);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (27, 'Iron', 'Laboratory', 'LAB036', 497.3);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (28, 'Complete Blood Count', 'Laboratory', 'LAB044', 396.55);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (29, 'Creatine Kinase', 'Laboratory', 'LAB042', 86.41);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (30, 'Lactate Dehydrogenase', 'Laboratory', 'LAB027', 420.12);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (31, 'Urinalysis', 'Laboratory', 'LAB007', 457.3);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (32, 'Luteinizing Hormone', 'Laboratory', 'LAB043', 173.58);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (33, 'Prolactin', 'Laboratory', 'LAB038', 51.49);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (34, 'Progesterone', 'Laboratory', 'LAB023', 212.29);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (35, 'Brain Natriuretic Peptide', 'Laboratory', 'LAB050', 380.75);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (36, 'Prolactin', 'Laboratory', 'LAB041', 464.48);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (37, 'Total Protein', 'Laboratory', 'LAB003', 124.31);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (38, 'D-Dimer', 'Laboratory', 'LAB013', 495.64);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (39, 'Bicarbonate', 'Laboratory', 'LAB011', 364.24);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (40, 'Chloride', 'Laboratory', 'LAB043', 54.36);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (41, 'Comprehensive Metabolic Panel', 'Laboratory', 'LAB044', 334.6);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (42, 'Activated Partial Thromboplastin Time', 'Laboratory', 'LAB009', 393.33);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (43, 'Creatine Kinase', 'Laboratory', 'LAB048', 176.21);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (44, 'Progesterone', 'Laboratory', 'LAB012', 445.71);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (45, 'Lipase', 'Laboratory', 'LAB013', 388.41);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (46, 'Estrogen', 'Laboratory', 'LAB027', 67.28);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (47, 'Albumin', 'Laboratory', 'LAB048', 109.52);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (48, 'Potassium', 'Laboratory', 'LAB016', 60.34);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (49, 'Glucose Tolerance Test', 'Laboratory', 'LAB037', 316.36);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (50, 'Basic Metabolic Panel', 'Laboratory', 'LAB033', 240.91);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (51, 'Fluoroscopy', 'Radiology', 'RAD-033', 197.71);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (52, 'Barium swallow', 'Radiology', 'RAD-026', 400.44);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (53, 'Ultrasound of the abdomen', 'Radiology', 'RAD-028', 402.24);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (54, 'Magnetic resonance angiography', 'Radiology', 'RAD-037', 54.39);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (55, 'Foot X-ray', 'Radiology', 'RAD-020', 173.69);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (56, 'MRI of the spine', 'Radiology', 'RAD-040', 157.17);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (57, 'Magnetic resonance angiography', 'Radiology', 'RAD-010', 123.32);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (58, 'Bone density scan', 'Radiology', 'RAD-022', 261.57);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (59, 'Bronchoscopy', 'Radiology', 'RAD-010', 85.33);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (60, 'Colonoscopy', 'Radiology', 'RAD-013', 315.48);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (61, 'Barium enema', 'Radiology', 'RAD-019', 249.92);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (62, 'Knee X-ray', 'Radiology', 'RAD-014', 477.39);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (63, 'Angiogram', 'Radiology', 'RAD-041', 97.38);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (64, 'Pelvic X-ray', 'Radiology', 'RAD-001', 299.01);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (65, 'PET scan', 'Radiology', 'RAD-030', 299.29);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (66, 'Lumbar puncture', 'Radiology', 'RAD-031', 299.13);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (67, 'MRI of the knee', 'Radiology', 'RAD-040', 302.85);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (68, 'Foot X-ray', 'Radiology', 'RAD-050', 301.42);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (69, 'Ultrasound of the pelvis', 'Radiology', 'RAD-030', 449.08);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (70, 'Endoscopy', 'Radiology', 'RAD-021', 383.37);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (71, 'MRI of the knee', 'Radiology', 'RAD-039', 491.91);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (72, 'Colonoscopy', 'Radiology', 'RAD-010', 346.96);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (73, 'Foot X-ray', 'Radiology', 'RAD-039', 280.56);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (74, 'Hysterosalpingogram', 'Radiology', 'RAD-021', 482.36);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (75, 'Chest X-ray', 'Radiology', 'RAD-026', 184.67);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (76, 'Shoulder X-ray', 'Radiology', 'RAD-050', 219.6);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (77, 'MRI of the spine', 'Radiology', 'RAD-044', 148.61);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (78, 'Knee X-ray', 'Radiology', 'RAD-007', 135.18);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (79, 'Bronchoscopy', 'Radiology', 'RAD-036', 437.23);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (80, 'Ultrasound of the thyroid', 'Radiology', 'RAD-009', 209.06);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (81, 'Ultrasound of the abdomen', 'Radiology', 'RAD-018', 153.64);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (82, 'Bronchoscopy', 'Radiology', 'RAD-046', 217.97);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (83, 'MRI of the spine', 'Radiology', 'RAD-039', 127.25);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (84, 'Skull X-ray', 'Radiology', 'RAD-025', 64.26);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (85, 'Barium swallow', 'Radiology', 'RAD-049', 141.4);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (86, 'MRI of the spine', 'Radiology', 'RAD-050', 361.4);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (87, 'CT scan of the chest', 'Radiology', 'RAD-048', 197.46);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (88, 'Spine X-ray', 'Radiology', 'RAD-029', 148.87);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (89, 'Electromyogram', 'Radiology', 'RAD-001', 244.95);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (90, 'Hysterosalpingogram', 'Radiology', 'RAD-009', 356.11);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (91, 'Neck X-ray', 'Radiology', 'RAD-042', 212.84);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (92, 'CT scan of the pelvis', 'Radiology', 'RAD-028', 132.26);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (93, 'Fluoroscopy', 'Radiology', 'RAD-039', 124.32);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (94, 'Electroencephalogram', 'Radiology', 'RAD-022', 210.32);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (95, 'CT scan of the abdomen', 'Radiology', 'RAD-016', 457.39);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (96, 'Upper GI series', 'Radiology', 'RAD-047', 338.19);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (97, 'Magnetic resonance angiography', 'Radiology', 'RAD-046', 460.93);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (98, 'MRI of the shoulder', 'Radiology', 'RAD-033', 307.82);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (99, 'Angiogram', 'Radiology', 'RAD-016', 363.74);
+insert into Lab_Radiology_examslist (id, name, type, code, price) values (100, 'Angiogram', 'Radiology', 'RAD-035', 66.25);
+
+
+
+INSERT INTO Appointments_doctorschedule (id, day_of_week, start_time, end_time, slot_duration, schedule_status, price, doctor_id) VALUES (1, 'Sunday', '10:00:00', '13:00:00', 20, 'active', 150, 1);
+INSERT INTO Appointments_doctorschedule (id, day_of_week, start_time, end_time, slot_duration, schedule_status, price, doctor_id) VALUES (2, 'Sunday', '09:00:00', '13:00:00', 20, 'active', 100, 2);
+INSERT INTO Appointments_doctorschedule (id, day_of_week, start_time, end_time, slot_duration, schedule_status, price, doctor_id) VALUES (3, 'Monday', '10:00:00', '15:00:00', 20, 'active', 130, 3);
+INSERT INTO Appointments_doctorschedule (id, day_of_week, start_time, end_time, slot_duration, schedule_status, price, doctor_id) VALUES (4, 'Friday', '10:00:00', '15:00:00', 15, 'active', 30, 4);
+
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (1, '10:00:00', '10:20:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (2, '10:20:00', '10:40:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (3, '10:40:00', '11:00:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (4, '11:00:00', '11:20:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (5, '11:20:00', '11:40:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (6, '11:40:00', '12:00:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (7, '12:00:00', '12:20:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (8, '12:20:00', '12:40:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (9, '12:40:00', '13:00:00', 1);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (10, '09:00:00', '09:20:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (11, '09:20:00', '09:40:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (12, '09:40:00', '10:00:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (13, '10:00:00', '10:20:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (14, '10:20:00', '10:40:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (15, '10:40:00', '11:00:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (16, '11:00:00', '11:20:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (17, '11:20:00', '11:40:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (18, '11:40:00', '12:00:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (19, '12:00:00', '12:20:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (20, '12:20:00', '12:40:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (21, '12:40:00', '13:00:00', 2);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (22, '10:00:00', '10:20:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (23, '10:20:00', '10:40:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (24, '10:40:00', '11:00:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (25, '11:00:00', '11:20:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (26, '11:20:00', '11:40:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (27, '11:40:00', '12:00:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (28, '12:00:00', '12:20:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (29, '12:20:00', '12:40:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (30, '12:40:00', '13:00:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (31, '13:00:00', '13:20:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (32, '13:20:00', '13:40:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (33, '13:40:00', '14:00:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (34, '14:00:00', '14:20:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (35, '14:20:00', '14:40:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (36, '14:40:00', '15:00:00', 3);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (37, '10:00:00', '10:15:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (38, '10:15:00', '10:30:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (39, '10:30:00', '10:45:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (40, '10:45:00', '11:00:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (41, '11:00:00', '11:15:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (42, '11:15:00', '11:30:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (43, '11:30:00', '11:45:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (44, '11:45:00', '12:00:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (45, '12:00:00', '12:15:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (46, '12:15:00', '12:30:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (47, '12:30:00', '12:45:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (48, '12:45:00', '13:00:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (49, '13:00:00', '13:15:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (50, '13:15:00', '13:30:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (51, '13:30:00', '13:45:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (52, '13:45:00', '14:00:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (53, '14:00:00', '14:15:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (54, '14:15:00', '14:30:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (55, '14:30:00', '14:45:00', 4);
+INSERT INTO Appointments_slot (id, start_time, end_time, schedule_id) VALUES (56, '14:45:00', '15:00:00', 4);
+
+
+INSERT INTO Appointments_bookedappointment (id, date, type, status, created_at, doctor_id, patient_id, slot_id) VALUES (1, '2023-05-17', 'new', 'waiting', '2023-05-17 15:25:40.798465', 1, 1, 1);
+INSERT INTO Appointments_bookedappointment (id, date, type, status, created_at, doctor_id, patient_id, slot_id) VALUES (3, '2023-05-20', 'new', 'waiting', '2023-05-18 18:09:04.300292', 2, 2, 19);
+
+
+
+
+
+
+INSERT INTO Appointments_doctorappointmentsdetails (id, date, total_appointments, doctor_id, schedule_id) VALUES (1, '2023-05-17', 1, 1, 1);
+INSERT INTO Appointments_doctorappointmentsdetails (id, date, total_appointments, doctor_id, schedule_id) VALUES (3, '2023-05-20', 1, 2, 2);
+
+INSERT INTO Lab_Radiology_examrequest (id, status, dateTime, comment, appointment_id, doctor_id, patient_id) VALUES (1, 'Pending', '2023-05-18 21:47:26', '', 1, 1, 1);
+INSERT INTO Lab_Radiology_examrequest (id, status, dateTime, comment, appointment_id, doctor_id, patient_id) VALUES (2, 'Pending', '2023-05-18 22:02:12', '', 1, 1, 1);
+
+INSERT INTO Lab_Radiology_examrequest_exams (id, examrequest_id, examslist_id) VALUES (1, 1, 2);
+INSERT INTO Lab_Radiology_examrequest_exams (id, examrequest_id, examslist_id) VALUES (2, 1, 62);
+INSERT INTO Lab_Radiology_examrequest_exams (id, examrequest_id, examslist_id) VALUES (3, 2, 4);
+INSERT INTO Lab_Radiology_examrequest_exams (id, examrequest_id, examslist_id) VALUES (4, 2, 7);
+
+
+INSERT INTO Lab_Radiology_labstaff (id, user_id) VALUES (1, 233);
+INSERT INTO Lab_Radiology_radiologystaff (id, user_id) VALUES (1, 234);
+INSERT INTO Lab_Radiology_radiologyresult (id, dateTime, report_file, Request_id, exam_id) VALUES (1, '2023-05-18 21:56:23', 'Lab_Radiology/files/xu2021.pdf', 1, 2);
+INSERT INTO Lab_Radiology_radiologyresultdetails (id, image, comment, result_id) VALUES (1, 'Lab_Radiology/files/media/264942155_423788905957661_1076873291743865288_n.png', '', 1);
