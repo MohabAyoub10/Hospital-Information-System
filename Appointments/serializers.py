@@ -66,6 +66,15 @@ class CreateAppointmentSerializer(serializers.ModelSerializer):
         model = BookedAppointment
         fields = ['id','patient','doctor','slot','date','type','status']
 
+    def create(self, validated_data):
+        doctor = validated_data.get('doctor')
+        patient = validated_data.get('patient')
+        slot = validated_data.get('slot')
+        date = validated_data.get('date')
+        if BookedAppointment.objects.filter(doctor=doctor, patient=patient, slot=slot, date=date).exists():
+            raise serializers.ValidationError({'Error': 'Appointment already Booked'})
+        return super().create(validated_data)    
+
 
 class DoctorAppointmentSerializer(serializers.ModelSerializer):
     doctor = DoctorSerializer()
