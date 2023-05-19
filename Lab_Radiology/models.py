@@ -19,6 +19,10 @@ class ExamsList(models.Model):
 
 
 class ExamRequest(models.Model):
+    request_types = [
+        ('Radiology', 'Radiology'),
+        ('Laboratory', 'Laboratory'),
+    ]
     REQUESTED = 'Requested'
     PENDING = 'Pending'
     waiting_for_result = 'Waiting for result'
@@ -31,6 +35,7 @@ class ExamRequest(models.Model):
         (COMPLETED, 'Completed'),
         (CANCELLED, 'Cancelled'),
     ]
+    type_of_request = models.CharField(max_length=255, choices=request_types)
     exams = models.ManyToManyField(ExamsList)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_exame')
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='doctor_exame')

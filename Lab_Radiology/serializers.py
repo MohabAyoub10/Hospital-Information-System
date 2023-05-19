@@ -50,7 +50,7 @@ class ExameRequestSerializer(ModelSerializer):
 
     class Meta:
         model = ExamRequest
-        fields = ['id', 'appointment',  'exams','status', 'comment', 'patient', 'doctor']
+        fields = ['id', 'appointment',  'exams','status', 'comment', 'patient', 'doctor', 'type_of_request']
 
 
 
