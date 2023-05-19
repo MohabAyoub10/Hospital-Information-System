@@ -28,7 +28,7 @@ DEBUG = 1
 
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-production-b18b.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://attendtracker-production.up.railway.app/']
 
 env = environ.Env()
 environ.Env.read_env()
