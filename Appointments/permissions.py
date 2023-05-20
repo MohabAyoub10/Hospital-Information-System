@@ -45,5 +45,5 @@ class BookAppointment(BasePermission):
 class DoctorAppointmentPermission(BasePermission):
     
         def has_permission(self, request, view):
-            if request.user.is_authenticated and request.method in SAFE_METHODS:
+            if request.user.is_authenticated and request.method:
                 return request.user.role in ['doctor', 'receptionist']
