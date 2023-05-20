@@ -49,11 +49,11 @@ class DoctorPrescriptionViewSet(ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
     def get_queryset(self):
-        doctor_id = self.request.user.user_doctor.id
+        patient_id = self.request.query_params.get('patient', None)
         return Prescription.objects \
             .select_related('patient__user', 'doctor__user') \
             .prefetch_related('prescription__drug') \
-                .filter(doctor=doctor_id).all()
+                .filter(Patient=patient_id).all()
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'POST']:
             return DoctorPrescriptionSerializer
