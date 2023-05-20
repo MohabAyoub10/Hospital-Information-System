@@ -32,6 +32,7 @@ class ExamRequest(models.Model):
     STATUS = [
         (REQUESTED, 'Requested'),
         (PENDING, 'Pending'),
+        (waiting_for_result, 'Waiting for result'),
         (COMPLETED, 'Completed'),
         (CANCELLED, 'Cancelled'),
     ]
