@@ -38,6 +38,16 @@ class ExamRequestViewSet(ModelViewSet):
             return ExameRequestSerializer
         else: return CreateExameRequest
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == 'receptionist':
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(stauts='Requested')
+        elif user.role == 'lab':
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Laboratory')
+        elif user.role == 'radiologist':
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Radiology')
+        
+
 
 
 
