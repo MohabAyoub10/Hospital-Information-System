@@ -4,7 +4,10 @@ from Hospital.models import Doctor, Specialty
 from .models import *
 
 
+
+
 class DoctorSerializer(ModelSerializer):
+    specialty = StringRelatedField()
     class Meta:
         model = Doctor
         fields = ['id','user', 'first_name', 'last_name','specialty']
