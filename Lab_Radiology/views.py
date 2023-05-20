@@ -100,15 +100,8 @@ class LabStaffViewSet(CustomModelViewSet):
 
 
 class TestResutlByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
-    queryset = ExamRequest.objects.prefetch_related('exams','Lab_request','Lab_request__exam').select_related('appointment','patient__user','doctor__user',).filter(status='Completed')
     serializer_class = TestResultByRequestSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['status', 'patient', 'doctor','exams__type']
-    pagination_class = pagination.PageNumberPagination
-
-    
-class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
-    serializer_class = RadiologyResultByRequestSerializer
+    permission_classes = [CanOnlyView]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['status', 'patient', 'doctor','exams__type']
     pagination_class = pagination.PageNumberPagination
@@ -116,8 +109,37 @@ class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mix
 
     def get_queryset(self):
         user = self.request.user
+        patient_id = self.request.query_params.get('patient', None)
         if user.role == 'patient':
-            return ExamRequest.objects.prefetch_related('exams','radiolgy_request','radiolgy_request__exam','radiolgy_request__radiology_result').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient=user)
-        else :
+            return ExamRequest.objects.prefetch_related('exams','Lab_request','Lab_request__exam').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient__user=user)
+        elif user.role == 'lab':
+            return ExamRequest.objects.prefetch_related('exams','Lab_request','Lab_request__exam').select_related('appointment','patient__user','doctor__user',).filter(status='Completed')
+        elif user.role == 'doctor':
+            if patient_id:
+                return ExamRequest.objects.prefetch_related('exams','Lab_request','Lab_request__exam').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient=patient_id)
+            else:
+                raise exceptions.ValidationError({'Error':'Please provide patient id'})
+
+    
+class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    serializer_class = RadiologyResultByRequestSerializer
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [CanOnlyView]
+    filterset_fields = ['status', 'patient', 'doctor','exams__type']
+    pagination_class = pagination.PageNumberPagination
+
+
+    def get_queryset(self):
+        user = self.request.user
+        patient_id = self.request.query_params.get('patient', None)
+        if user.role == 'patient':
+            return ExamRequest.objects.prefetch_related('exams','radiolgy_request','radiolgy_request__exam','radiolgy_request__radiology_result').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient__user=user)
+        elif user.role == 'radiologist':
+            return ExamRequest.objects.prefetch_related('exams','radiolgy_request','radiolgy_request__exam','radiolgy_request__radiology_result').select_related('appointment','patient__user','doctor__user',).filter(status='Completed')
+        elif user.role == 'doctor':
+            if patient_id:
+                return ExamRequest.objects.prefetch_related('exams','radiolgy_request','radiolgy_request__exam','radiolgy_request__radiology_result').select_related('appointment','patient__user','doctor__user',).filter(status='Completed',patient=patient_id)
+            else:
+                raise exceptions.ValidationError({'Error':'Please provide patient id'})
+        else:
             return ExamRequest.objects.none()
-        
