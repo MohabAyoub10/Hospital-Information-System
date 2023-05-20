@@ -22,7 +22,7 @@ class Prescription(BaseModel):
     ]
     doctor = models.ForeignKey(Doctor, on_delete=models.PROTECT, related_name='doctor')
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT, related_name='patient')
-    appointment = models.ForeignKey(BookedAppointment,on_delete=models.CASCADE, related_name='appointment', null=True, blank=True)
+    appointment = models.ForeignKey(BookedAppointment,on_delete=models.CASCADE, related_name='appointment')
     date = models.DateField(auto_now_add=True)
     notes = models.TextField()
     dispensed_by = models.ForeignKey('Pharmacist', on_delete=models.CASCADE, null=True, blank=True, related_name='dispensed_by')
