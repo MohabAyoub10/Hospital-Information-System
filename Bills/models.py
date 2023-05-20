@@ -30,6 +30,7 @@ class Bill(models.Model):
     examrequest = models.ForeignKey(ExamRequest, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE,related_name='Bill', null=True,blank=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True)
     
 
 

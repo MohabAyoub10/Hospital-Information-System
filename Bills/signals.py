@@ -41,3 +41,10 @@ def create_prescription_service(sender, instance, **kwargs):
             for item in instance.prescription.all():
                 bill.total += Decimal(item.drug.price)
             bill.save()
+
+
+@receiver(post_save, sender=Bill)
+def update_bill_total(sender, instance, **kwargs):
+    if instance.discount != 0.0:
+        instance.total -= (instance.total * instance.discount / 100)
+        instance.save()
