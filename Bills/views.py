@@ -12,8 +12,6 @@ from rest_framework.filters import SearchFilter
 from .permissions import *
 
 
-
-
 class InsuranceDetailsViewSet(viewsets.ModelViewSet):
     queryset = InsuranceDetails.objects.all()
     filter_backends = [DjangoFilterBackend]
@@ -25,6 +23,16 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return CreateInsuranceDetailsSerializer
         return InsuranceDetailsSerializer
+    
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == 'patient':
+            return InsuranceDetails.objects.filter(patient__user=user)
+        elif user.role == 'receptionist':
+            return InsuranceDetails.objects.all()
+        else:
+            return InsuranceDetails.objects.none()
     
 
 
@@ -43,7 +51,7 @@ class BillsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'patient':
-            return Bill.objects.filter(patient=user.patient)
+            return Bill.objects.filter(patient__user=user)
         elif user.role == 'receptionist':
             return Bill.objects.all()
         else:
