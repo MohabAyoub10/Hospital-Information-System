@@ -42,3 +42,14 @@ class CanViewOrEditOrCreatLabResult(BasePermission):
                 return True
             return (request.user.role == 'lab')
         return False
+    
+
+
+class CanOnlyView(BasePermission):
+    
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            if request.method in SAFE_METHODS and request.user.role in ['doctor', 'radiologist','lab','patient']:
+                return True
+            return False
+        return False
