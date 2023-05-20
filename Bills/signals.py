@@ -21,6 +21,8 @@ def create_bill_service(sender, instance, **kwargs):
 def create_exam_service(sender, instance, **kwargs):
     if instance.status == 'Pending':
         bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        if not bill:
+            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         bill.examrequest = instance
         for exam in instance.exams.all():
             bill.total += exam.price
