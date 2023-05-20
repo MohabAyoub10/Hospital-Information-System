@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-dnssfa#!j^xlhoz-7--wd2_g24q0^b*uyxh2yjw74$nfmej6s_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 1
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-1-production.up.railway.app/']
