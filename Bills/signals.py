@@ -23,17 +23,21 @@ def create_exam_service(sender, instance, **kwargs):
         bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
         if not bill:
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
-        bill.examrequest = instance
-        for exam in instance.exams.all():
-            bill.total += exam.price
-        bill.save()
+        else :
+            bill.examrequest = instance
+            for exam in instance.exams.all():
+                bill.total += exam.price
+            bill.save()
 
 
 @receiver(post_save, sender=Prescription)
 def create_prescription_service(sender, instance, **kwargs):
     if instance.dispensed_status == 'send_to_pharmacy':
         bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
-        bill.prescription = instance
-        for item in instance.prescription.all():
-            bill.total += Decimal(item.drug.price)
-        bill.save()
+        if not bill:
+            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
+        else :
+            bill.prescription = instance
+            for item in instance.prescription.all():
+                bill.total += Decimal(item.drug.price)
+            bill.save()
