@@ -96,11 +96,12 @@ class BillsSerializer(serializers.ModelSerializer):
     patient = PatientSerializer()
     insurance = InsuranceDetailsSerializer()
     appointment = AppointmentsSerializer()
-    examrequest = ExamRequestSerializer()
+    radiology_request = ExamRequestSerializer()
+    lab_request = ExamRequestSerializer()
     prescription = PrescriptionSerializer()
     class Meta:
         model = Bill
-        fields = ['patient', 'appointment', 'examrequest','prescription', 'insurance','time_date', 'total']
+        fields = ['patient', 'appointment', 'radiology_request','lab_request','prescription', 'insurance','time_date', 'total']
 
 
 class CreateBillsSerializer(serializers.ModelSerializer):
