@@ -18,13 +18,25 @@ def create_bill_service(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=ExamRequest)
-def create_exam_service(sender, instance, **kwargs):
-    if instance.status == 'Pending':
+def create_radiology_service(sender, instance, **kwargs):
+    if instance.status == 'Pending' and instance.type_of_request == 'Radiology':
         bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
         if not bill:
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
-            bill.examrequest = instance
+            bill.radiology_request = instance
+            for exam in instance.exams.all():
+                bill.total += exam.price
+            bill.save()
+
+@receiver(post_save, sender=ExamRequest)
+def create_lab_service(sender, instance, **kwargs):
+    if instance.status == 'Pending' and instance.type_of_request == 'Laboratory':
+        bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        if not bill:
+            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
+        else :
+            bill.lab_request = instance
             for exam in instance.exams.all():
                 bill.total += exam.price
             bill.save()
