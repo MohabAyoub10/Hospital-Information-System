@@ -53,7 +53,7 @@ class DoctorPrescriptionViewSet(ModelViewSet):
         return Prescription.objects \
             .select_related('patient__user', 'doctor__user') \
             .prefetch_related('prescription__drug') \
-                .filter(Patient=patient_id).all()
+                .filter(patient=patient_id).all()
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'POST']:
             return DoctorPrescriptionSerializer
