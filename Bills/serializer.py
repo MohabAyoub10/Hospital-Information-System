@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer, StringRelatedField
 from django.contrib.auth.models import User
 from Hospital.models import Patient, Doctor
 from Lab_Radiology.models import ExamRequest
-from Appointments.models import BookedAppointment
+from Appointments.models import *
 from .models import Bill, InsuranceDetails
 from Lab_Radiology.models import ExamRequest, ExamsList
 from Pharmacy.models import PrescriptionItems, Prescription
@@ -41,12 +41,22 @@ class ExamRequestSerializer(ModelSerializer):
     class Meta:
         model = ExamRequest
         fields = ['id','dateTime', 'status', 'exams']
+
+class ScheduleSerializer(ModelSerializer):
+    class Meta:
+        model = DoctorSchedule
+        fields = ['price']
+class SlotSerializer(ModelSerializer):
+    schedule = ScheduleSerializer()
+    class Meta:
+        model = Slot
+        fields = ['id', 'start_time', 'schedule']
 class AppointmentsSerializer(ModelSerializer):
     doctor = DoctorSerializer()
-
+    slot = SlotSerializer()
     class Meta:
         model = BookedAppointment
-        fields = ['id', 'date', 'doctor','slot__schedule__price']
+        fields = ['id', 'date', 'doctor','slot']
 
 
 class InsuranceDetailsSerializer(ModelSerializer):
