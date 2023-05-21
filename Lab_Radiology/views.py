@@ -23,7 +23,7 @@ class ExamsListViewSet(ModelViewSet):
     filterset_fields = ['type']
     pagination_class = pagination.PageNumberPagination
 
-
+from pprint import pprint
 
 
 class ExamRequestViewSet(ModelViewSet):
@@ -32,21 +32,22 @@ class ExamRequestViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['status', 'patient', 'doctor','type_of_request']
     pagination_class = pagination.PageNumberPagination
-
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
             return ExameRequestSerializer
         else: return CreateExameRequest
-
     def get_queryset(self):
         user = self.request.user
+        if user.role == 'doctor':
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(doctor=user.user_doctor)
         if user.role == 'receptionist':
-            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(stauts='Requested')
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(status='Requested')
         elif user.role == 'lab':
-            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Laboratory')
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Laboratory',status__in=['Pending','Waiting for result','Completed'])
         elif user.role == 'radiologist':
-            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Radiology')
-        
+            return ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').filter(type_of_request='Radiology',status__in=['Pending','Waiting for result','Completed'])
+        else:
+            raise exceptions.PermissionDenied()
 
 
 
