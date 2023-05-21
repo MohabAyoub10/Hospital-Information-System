@@ -174,6 +174,7 @@ SIMPLE_JWT = {
 }
  
 DJOSER = {
+    'SEND_CONFIRMATION_EMAIL': True,
     'PERMISSIONS':{
         'user_create':['Core.permissions.IsAdminOrReceptionist'],
         'user_list':['Core.permissions.IsAdminOrReceptionist'],
