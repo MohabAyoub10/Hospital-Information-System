@@ -30,7 +30,7 @@ class ExamRequestViewSet(ModelViewSet):
     queryset = ExamRequest.objects.prefetch_related('exams').select_related('appointment','patient__user','doctor__user').all()
     permission_classes = [CanViewOrEdit]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['status', 'patient', 'doctor','type_of_request']
+    filterset_fields = ['status', 'patient', 'doctor','type_of_request','appointment']
     pagination_class = pagination.PageNumberPagination
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
