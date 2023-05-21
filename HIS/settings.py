@@ -33,7 +33,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-1-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-production.up.railway.app/']
 
 env = environ.Env()
 environ.Env.read_env()
