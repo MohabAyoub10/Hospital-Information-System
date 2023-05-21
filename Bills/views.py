@@ -51,9 +51,9 @@ class BillsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'patient':
-            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot','appointment__slot__schedule', 'insurance','examrequest','prescription').filter(patient__user=user)
+            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot','appointment__slot__schedule', 'insurance','radiology_request','lab_request','prescription').filter(patient__user=user)
         elif user.role == 'receptionist':
-            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot', 'appointment__slot__schedule','insurance','examrequest','prescription').all()
+            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot', 'appointment__slot__schedule','insurance','radiology_request','lab_request','prescription').all()
         else:
             return Bill.objects.none()
     
