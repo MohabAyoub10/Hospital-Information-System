@@ -57,7 +57,7 @@ class DoctorPrescriptionSerializer(serializers.ModelSerializer):
     prescription = DoctorViewPrescriptionItemsSerializer(many=True, read_only=True)
     class Meta:
         model = Prescription
-        fields = ['id', 'patient','date', 'notes', 'prescription' ]
+        fields = ['id', 'patient','date', 'notes', 'prescription' ,'appointment']
     
     def create(self, validated_data):
         doctor_id = self.context['doctor_id']
@@ -73,7 +73,7 @@ class DoctorViewerPrescriptionSerializer(serializers.ModelSerializer):
     doctor = serializers.SerializerMethodField()
     class Meta:
         model = Prescription
-        fields = ['id', 'patient','doctor','date', 'notes', 'prescription' ]
+        fields = ['id', 'patient','doctor','date', 'notes', 'prescription','appointment' ]
         read_only_fields = ['patient','doctor','date', 'notes', 'prescription' ]
     def get_patient(self, obj):
         patient= obj.patient 
