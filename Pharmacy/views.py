@@ -47,6 +47,7 @@ class DoctorPrescriptionViewSet(ModelViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsDoctor]
     filter_backends = [SearchFilter]
+    filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     def get_queryset(self):
         patient_id = self.request.query_params.get('patient', None)
@@ -68,6 +69,7 @@ class PharmacistPrescriptionViewSet(NoPostViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsPharmacist]
     filter_backends = [SearchFilter]
+    filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
                 .prefetch_related('prescription__drug').filter(dispensed_status='send_to_pharmacy').all()    
@@ -85,6 +87,7 @@ class ReceptionistPrescriptionViewSet(NoPostViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsReceptionist]
     filter_backends = [SearchFilter]
+    filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
                 .prefetch_related('prescription__drug').filter(dispensed_status='requested').all()
@@ -101,6 +104,7 @@ class PatientPrescriptionViewSet(ReadOnlyModelViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsPatient]
     filter_backends = [SearchFilter]
+    filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes']
     def get_queryset(self):
         patient_id = self.request.user.user_patient.id
