@@ -46,7 +46,7 @@ class PrescriptionItemsViewSet(ModelViewSet):
 class DoctorPrescriptionViewSet(ModelViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsDoctor]
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
     filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     def get_queryset(self):
@@ -68,7 +68,7 @@ class PharmacistPrescriptionViewSet(NoPostViewSet):
     http_method_names = ['get', 'put', 'head', 'options']
     pagination_class = PageNumberPagination
     permission_classes = [IsPharmacist]
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
     filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
@@ -86,7 +86,7 @@ class ReceptionistPrescriptionViewSet(NoPostViewSet):
     http_method_names = ['get', 'put', 'head', 'options']
     pagination_class = PageNumberPagination
     permission_classes = [IsReceptionist]
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
     filterset_fields = '__all__'
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'notes','appointment']
     queryset = Prescription.objects.select_related('patient__user', 'doctor__user') \
