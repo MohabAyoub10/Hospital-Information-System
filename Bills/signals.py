@@ -25,7 +25,7 @@ def create_radiology_service(sender, instance, **kwargs):
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
             bill.radiology_request = instance
-            for exam in instance.exams.all():
+            for exam in bill.radiology_request.exams.all():
                 bill.total += exam.price
             bill.save()
 
@@ -37,7 +37,7 @@ def create_lab_service(sender, instance, **kwargs):
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
             bill.lab_request = instance
-            for exam in instance.exams.all():
+            for exam in bill.lab_request.exams.all():
                 bill.total += exam.price
             bill.save()
 
@@ -51,7 +51,8 @@ def create_prescription_service(sender, instance, **kwargs):
         else :
             bill.prescription = instance
             for item in instance.prescription.all():
-                bill.total += Decimal(item.drug.price)
+                if item.drug.dispensed == True:
+                    bill.total += Decimal(item.drug.price)
             bill.save()
 
 
