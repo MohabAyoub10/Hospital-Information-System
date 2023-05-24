@@ -3,7 +3,7 @@ from rest_framework import serializers
 from Hospital.models import Patient, Doctor
 from Appointments.models import BookedAppointment
 from .models import *
-
+from pprint import pprint
 
 
 class ExamsListSerializer(ModelSerializer):
@@ -59,6 +59,15 @@ class CreateExameRequest(ModelSerializer):
     class Meta:
         model = ExamRequest
         fields = '__all__'
+
+    def create(self, validated_data):
+        appointment = validated_data.get('appointment')
+        request = ExamRequest.objects.filter(appointment=appointment)   
+        if request.exists():
+            request.delete()
+        return super().create(validated_data)
+
+
 
 
 class RadiolgyResultDetailsSerializer(ModelSerializer):
