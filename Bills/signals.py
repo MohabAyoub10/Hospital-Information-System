@@ -25,8 +25,8 @@ def create_radiology_service(sender, instance, **kwargs):
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
             bill.radiology_request = instance
-            # for exam in bill.radiology_request.exams.all():
-            #     bill.total += exam.price
+            for exam in bill.radiology_request.exams.all():
+                bill.total += exam.price
             bill.save()
 
 @receiver(post_save, sender=ExamRequest)
@@ -37,8 +37,8 @@ def create_lab_service(sender, instance, **kwargs):
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
             bill.lab_request = instance
-            # for exam in bill.lab_request.exams.all():
-            #     bill.total += exam.price
+            for exam in bill.lab_request.exams.all():
+                bill.total += exam.price
             bill.save()
 
 
@@ -50,24 +50,14 @@ def create_prescription_service(sender, instance, **kwargs):
             raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
         else :
             bill.prescription = instance
-            # for item in instance.prescription.all():
-            #     if item.drug.dispensed == True:
-            #         bill.total += Decimal(item.drug.price)
+            for item in instance.prescription.all():
+                if item.dispensed == True:
+                    bill.total += Decimal(item.drug.price)
             bill.save()
 
 
 @receiver(post_save, sender=Bill)
 def update_bill_total(sender, instance, **kwargs):
-    if instance.prescription:
-        for item in instance.prescription.prescription.all():
-            if item.drug.dispensed == True:
-                instance.total += Decimal(item.drug.price)
-    if instance.lab_request:
-        for exam in instance.lab_request.exams.all():
-            instance.total += exam.price
-    if instance.radiology_request:
-        for exam in instance.radiology_request.exams.all():
-            instance.total += exam.price
     if instance.discount != 0.0:
         instance.total -= (instance.total * instance.discount / 100)
         instance.save()
