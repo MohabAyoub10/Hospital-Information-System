@@ -28,9 +28,7 @@ class ReceptionistEmergencyContactSerializer(serializers.ModelSerializer):
             address = Address.objects.create(**address_data)
             return EmergencyContact.objects.create(address=address,**validated_data)
     
-
-
-class SurgeryInfoSerializer(serializers.ModelSerializer):
+class ViewSurgeryInfoSerializer(serializers.ModelSerializer):
     patient = serializers.SerializerMethodField()
     doctor = serializers.SerializerMethodField()
     class Meta:
@@ -50,6 +48,13 @@ class SurgeryInfoSerializer(serializers.ModelSerializer):
             'first_name':doctor.user.first_name,
             'last_name':doctor.user.last_name,
         }
+
+
+class SurgeryInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SurgeryInfo
+        fields = ['patient','doctor','surgery_type','date','time','documentation']
+
 
 class PatientSurgeryInfoSerializer(serializers.ModelSerializer):
     doctor = serializers.SerializerMethodField()
@@ -107,8 +112,7 @@ class ViewVisitSerializer(serializers.ModelSerializer):
         }
 
 
-    
-class VitalSerializer(serializers.ModelSerializer):
+class ViewVitalSerializer(serializers.ModelSerializer):
     patient = serializers.SerializerMethodField()
     class Meta:
         model = Vitals
@@ -120,6 +124,12 @@ class VitalSerializer(serializers.ModelSerializer):
             'first_name':patient.user.first_name,
             'last_name':patient.user.last_name
         }
+    
+class VitalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vitals
+        fields = ['id','patient','date','time','height','weight','blood_pressure','heart_rate','temperature']
+
 
 class PatientVitalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -127,7 +137,7 @@ class PatientVitalSerializer(serializers.ModelSerializer):
         fields = ['id','date','time','height','weight','blood_pressure','heart_rate','temperature']
 
 
-class MedicalRecordSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
+class ViewMedicalRecordSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     patient = serializers.SerializerMethodField()
     class Meta:
         model = MedicalRecord
@@ -139,6 +149,12 @@ class MedicalRecordSerializer(WritableNestedModelSerializer,serializers.ModelSer
             'first_name':patient.user.first_name,
             'last_name':patient.user.last_name
         }
+    
+class MedicalRecordSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
+    class Meta:
+        model = MedicalRecord
+        fields =['patient','diagnosis','allergies','family_history']
+
 
 
 class PatientMedicalRecordSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
