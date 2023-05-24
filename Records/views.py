@@ -32,7 +32,7 @@ class VisitViewSet(ModelViewSet):
     filterset_fields = ['admission_date','discharge_date']
     search_fields = ['doctor__user__first_name','doctor__user__last_name','patient__user__first_name','patient__user__last_name']
     serializer_class = VisitsSerializer
-    permission_classes = [IsReceptionistOrPatientDoctorReadOnly]
+    permission_classes = [IsMedicalSecretaryOrPatientDoctorReadOnly]
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return ViewVisitSerializer
@@ -42,8 +42,7 @@ class VisitViewSet(ModelViewSet):
             return Visits.objects.select_related('patient__user').select_related('doctor__user').filter(patient__user=self.request.user).all()
         elif self.request.user.role == 'doctor':
             return Visits.objects.select_related('patient__user').select_related('doctor__user').filter(doctor__user=self.request.user).all()
-        return Visits.objects.select_related('patient__user').select_related('doctor__user').all() #need some optimization
-
+        return Visits.objects.select_related('patient__user').select_related('doctor__user').all() 
 
     
 class SurgeryViewSet(ModelViewSet):
