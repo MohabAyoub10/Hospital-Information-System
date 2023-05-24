@@ -51,7 +51,9 @@ class SurgeryViewSet(ModelViewSet):
     search_fields = ['doctor__user__first_name','doctor__user__last_name','patient__user__first_name','patient__user__last_name','surgery_type']
     permission_classes = [IsMedicalSecretaryOrPatientDoctorReadOnly]
     def get_serializer_class(self):
-        if self.request.user.role == 'patient':
+        if self.request.user.role == 'medical_secretary' and self.request.method == 'GET':
+            return ViewSurgeryInfoSerializer
+        elif self.request.user.role == 'patient':
             return PatientSurgeryInfoSerializer
         elif self.request.user.role == 'doctor':
             return DoctorSurgeryInfoSerializer
@@ -72,7 +74,9 @@ class VitalViewSet(ModelViewSet):
     search_fields = ['patient__user__first_name','patient__user__last_name']
     permission_classes = [IsMedicalSecretaryOrPatientReadOnly] 
     def get_serializer_class(self):
-        if self.request.user.role == 'patient':
+        if self.request.user.role == 'medical_secretary' and self.request.method == 'GET':
+            return ViewVitalSerializer
+        elif self.request.user.role == 'patient':
             return PatientVitalSerializer
         return VitalSerializer
     def get_queryset(self):
@@ -88,7 +92,9 @@ class MedicalRecordViewSet(ModelViewSet):
     search_fields = ['patient__user__first_name','patient__user__last_name']
     permission_classes = [IsMedicalSecretaryOrPatientDoctorReadOnly]
     def get_serializer_class(self):
-        if self.request.user.role == 'patient':
+        if self.request.user.role == 'medical_secretary' and self.request.method == 'GET':
+            return ViewMedicalRecordSerializer          
+        elif self.request.user.role == 'patient':
             return PatientMedicalRecordSerializer
         return MedicalRecordSerializer
     def get_queryset(self):
