@@ -17,8 +17,8 @@ from .customviewset import CustomModelViewSet
         
 class DoctorViewSet(CustomModelViewSet):
     filter_backends = [DjangoFilterBackend,SearchFilter]
-    search_fields = ['department__dapartment_name']
-    filterset_fields = ['department__dapartment_name','specialty__specialty']
+    search_fields = ['user__first_name','user__last_name']
+    filterset_fields = ['department','specialty']
     queryset = Doctor.objects.select_related('user').select_related('department').select_related('specialty').all()
     permission_classes = [IsAdminOrReadOnly]
     
@@ -80,11 +80,14 @@ class PatientViewSet(CustomModelViewSet):
 
 
 class DepartmentViewSet(ModelViewSet):
-    
+    filter_backends = [SearchFilter]
+    search_fields = ['dapartment_name',]
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
 
 class SpecialtyViewSet(ModelViewSet):
+    filter_backends = [SearchFilter]
+    search_fields = ['specialty',]
     queryset = Specialty.objects.all()
     serializer_class = SpecialtySerializer
 
