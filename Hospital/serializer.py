@@ -35,7 +35,7 @@ class CreateDoctorSerializer(serializers.ModelSerializer):
 class UpdateDoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ['user','specialty','medical_license','department','image']
+        fields = ['id','user','specialty','medical_license','department','image']
         read_only_fields = ['user',]
 
 
