@@ -18,7 +18,7 @@ from .customviewset import CustomModelViewSet
 class DoctorViewSet(CustomModelViewSet):
     filter_backends = [DjangoFilterBackend,SearchFilter]
     search_fields = ['user__first_name','user__last_name']
-    filterset_fields = ['department','specialty']
+    filterset_fields = ['user__id','department','specialty','id']
     queryset = Doctor.objects.select_related('user').select_related('department').select_related('specialty').all()
     permission_classes = [IsAdminOrReadOnly]
     
