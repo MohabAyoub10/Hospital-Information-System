@@ -1,6 +1,7 @@
 # Ignore Django migrations
 migrations
 db.sqlite3
+.vscode
 .env
 # Ignore Python cache files
 __pycache__/
