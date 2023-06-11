@@ -55,7 +55,7 @@ class BookedAppointment(models.Model):
     slot = models.ForeignKey(
         Slot, on_delete=models.PROTECT, related_name='slot_appointment')
     date = models.DateField()
-    type = models.CharField(max_length=10, choices=type_of_appointment)
+    type = models.CharField(max_length=12, choices=type_of_appointment)
     status = models.CharField(max_length=10, choices=appointment_status)
     created_at = models.DateTimeField(auto_now_add=True)
 
