@@ -14,16 +14,16 @@ from .permissions import *
 
 class InsuranceDetailsViewSet(viewsets.ModelViewSet):
     queryset = InsuranceDetails.objects.all()
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     permission_classes = [CreateOrEditOrDeleteInsuranceDetails]
-    filterset_fields = ['patient','patient__user__username', 'company', 'number']
-
+    search_fields = ['patient__user__username']
+    filterset_fields = ['patient',
+                        'patient__user__username', 'company', 'number']
 
     def get_serializer_class(self):
         if self.action == 'create':
             return CreateInsuranceDetailsSerializer
         return InsuranceDetailsSerializer
-    
 
     def get_queryset(self):
         user = self.request.user
@@ -33,29 +33,25 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
             return InsuranceDetails.objects.all()
         else:
             return InsuranceDetails.objects.none()
-    
 
 
 class BillsViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     permission_classes = [BillPermission]
-    filterset_fields = ['patient','patient__user__username', 'appointment']
-    search_fields = ['patient__user__username']
-
+    filterset_fields = ['patient', 'patient__user__username', 'appointment']
+    search_fields = ['patient__user__first_name', 'patient__user__last_name',
+                     'patient__user__national_id', 'patient__user__phone_1']
 
     def get_serializer_class(self):
         if self.action == 'create':
             return CreateBillsSerializer
         return BillsSerializer
-    
+
     def get_queryset(self):
         user = self.request.user
         if user.role == 'patient':
-            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot','appointment__slot__schedule', 'insurance','radiology_request','lab_request','prescription').filter(patient__user=user)
+            return Bill.objects.select_related('patient__user', 'appointment', 'appointment__doctor__user', 'appointment__slot', 'appointment__slot__schedule', 'insurance', 'radiology_request', 'lab_request', 'prescription').filter(patient__user=user)
         elif user.role == 'receptionist':
-            return Bill.objects.select_related('patient__user', 'appointment','appointment__doctor__user','appointment__slot', 'appointment__slot__schedule','insurance','radiology_request','lab_request','prescription').all()
+            return Bill.objects.select_related('patient__user', 'appointment', 'appointment__doctor__user', 'appointment__slot', 'appointment__slot__schedule', 'insurance', 'radiology_request', 'lab_request', 'prescription').all()
         else:
             return Bill.objects.none()
-    
-
-    
