@@ -35,7 +35,7 @@ class CreateDoctorScheduleOrUpdate(BasePermission):
             return True
         elif request.method in SAFE_METHODS and request.user.role == 'patient' and request.user.is_authenticated:
             return True
-        elif request.method in ['POST', 'PUT', 'PATCH', 'DELETE'] and is_doctor(request.user):
+        elif request.method in ['POST', 'PUT', 'PATCH', 'DELETE'] and is_receptionist(request.user):
             return True
         return False
 
