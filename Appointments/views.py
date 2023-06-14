@@ -91,5 +91,5 @@ class DoctorAppointmentsDetailsViewSet(viewsets.ModelViewSet):
     permission_classes = [DoctorAppointmentPermission]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     search_fields = ['doctor__user__first_name',
-                     'doctor__specialty__specialty',]
+                     'doctor__specialty__specialty', 'date']
     filterset_fields = '__all__'
