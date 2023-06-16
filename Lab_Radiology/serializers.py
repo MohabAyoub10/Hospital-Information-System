@@ -12,7 +12,6 @@ class ExamsListSerializer(ModelSerializer):
         fields = '__all__'
 
 
-
 class PatientSerializer(ModelSerializer):
     class Meta:
         model = Patient
@@ -26,7 +25,7 @@ class PatientSerializer(ModelSerializer):
 class DoctorSerializer(ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ['id','user', 'first_name', 'last_name','specialty']
+        fields = ['id', 'user', 'first_name', 'last_name', 'specialty']
 
     user = StringRelatedField()
     first_name = serializers.CharField(source='user.first_name')
@@ -39,19 +38,18 @@ class AppointmentSerializer(ModelSerializer):
         fields = ['id', 'date']
 
 
-
 class ExameRequestSerializer(ModelSerializer):
 
     exams = ExamsListSerializer(many=True)
     appointment = AppointmentSerializer()
-    
+
     patient = PatientSerializer()
     doctor = DoctorSerializer()
 
     class Meta:
         model = ExamRequest
-        fields = ['id', 'appointment',  'exams','status', 'comment', 'patient', 'doctor', 'type_of_request']
-
+        fields = ['id', 'appointment',  'exams', 'status',
+                  'comment', 'patient', 'doctor', 'type_of_request']
 
 
 class CreateExameRequest(ModelSerializer):
@@ -62,12 +60,12 @@ class CreateExameRequest(ModelSerializer):
 
     def create(self, validated_data):
         appointment = validated_data.get('appointment')
-        request = ExamRequest.objects.filter(appointment=appointment)   
-        if request.exists():
-            request.delete()
+        type_of_request = validated_data.get('type_of_request')
+        requests = ExamRequest.objects.filter(appointment=appointment)
+        for request in requests:
+            if request.type_of_request == type_of_request:
+                request.delete()
         return super().create(validated_data)
-
-
 
 
 class RadiolgyResultDetailsSerializer(ModelSerializer):
@@ -76,15 +74,13 @@ class RadiolgyResultDetailsSerializer(ModelSerializer):
         fields = '__all__'
 
 
-
-
-
 class RadiologyResultSerializer(ModelSerializer):
     radiology_result = RadiolgyResultDetailsSerializer(many=True)
     exam = ExamsListSerializer()
+
     class Meta:
         model = RadiologyResult
-        fields = ['id', 'exam','report_file' ,'radiology_result',]
+        fields = ['id', 'exam', 'report_file', 'radiology_result',]
 
 
 class RadiologyResultByRequestSerializer(ModelSerializer):
@@ -96,16 +92,16 @@ class RadiologyResultByRequestSerializer(ModelSerializer):
         model = ExamRequest
         fields = ['id', 'radiolgy_request', 'patient', 'doctor']
 
+
 class CreateRadiologyResult(ModelSerializer):
     class Meta:
         model = RadiologyResult
         fields = '__all__'
 
 
-
-
 class TestResultSerializer(ModelSerializer):
     exam = ExamsListSerializer()
+
     class Meta:
         model = TestResult
         fields = ['Request', 'exam', 'dateTime', 'pdf_result', 'comment']
@@ -120,6 +116,7 @@ class TestResultByRequestSerializer(ModelSerializer):
         model = ExamRequest
         fields = ['id', 'Lab_request', 'patient', 'doctor']
 
+
 class CreateTestResult(ModelSerializer):
     class Meta:
         model = TestResult
@@ -129,10 +126,10 @@ class CreateTestResult(ModelSerializer):
 class LabStaffSerializer(ModelSerializer):
     class Meta:
         model = LabStaff
-        fields = ['id','user']
+        fields = ['id', 'user']
 
 
 class RadiologyStaffSerializer(ModelSerializer):
     class Meta:
         model = RadiologyStaff
-        fields = ['id','user']
+        fields = ['id', 'user']
