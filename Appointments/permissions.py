@@ -4,14 +4,11 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 def is_admin_or_staff(user):
     return user.is_authenticated and user.role in ['admin', 'receptionist', 'doctor']
 
-
 def is_receptionist(user):
     return user.is_authenticated and user.role == 'receptionist'
 
-
 def is_patient(user):
     return user.is_authenticated and user.role == 'patient'
-
 
 def is_doctor(user):
     return user.is_authenticated and user.role == 'doctor'

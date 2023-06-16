@@ -17,7 +17,8 @@ class ExamsListViewSet(ModelViewSet):
     queryset = ExamsList.objects.all()
     permission_classes = [ViewOrCreatOrEditExams]
     serializer_class = ExamsListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['name', 'code']
     filterset_fields = ['type']
     pagination_class = pagination.PageNumberPagination
 
