@@ -73,7 +73,7 @@ class InsuranceDetailsSerializer(ModelSerializer):
 
     class Meta:
         model = InsuranceDetails
-        fields = ['patient', 'company', 'number', 'expairy_date',
+        fields = ['id', 'patient', 'company', 'number', 'expairy_date',
                   'coverage', 'coverage_percentage', 'card']
 
 
