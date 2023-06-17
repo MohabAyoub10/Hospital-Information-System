@@ -86,7 +86,7 @@ class CreateInsuranceDetailsSerializer(ModelSerializer):
         user = self.context['request'].user
         role = user.role
         if role == 'patient':
-            patient_id = user.id
+            patient_id = user.patient.id
             if patient_id != validated_data['patient'].id:
                 raise serializers.ValidationError(
                     "You are not allowed to create insurance details for other patients")
