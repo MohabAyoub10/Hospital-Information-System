@@ -21,7 +21,7 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
                         'patient__user__username', 'company', 'number']
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.request.method == 'POST' or self.request.method == 'PUT':
             return CreateInsuranceDetailsSerializer
         return InsuranceDetailsSerializer
 
