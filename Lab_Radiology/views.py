@@ -126,12 +126,12 @@ class TestResutlByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.R
         user = self.request.user
         patient_id = self.request.query_params.get('patient', None)
         if user.role == 'patient':
-            return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient__user=user)
+            return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient__user=user, type_of_request='Laboratory')
         elif user.role == 'lab':
-            return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed')
+            return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', type_of_request='Laboratory')
         elif user.role == 'doctor':
             if patient_id:
-                return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient=patient_id)
+                return ExamRequest.objects.prefetch_related('exams', 'Lab_request', 'Lab_request__exam').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient=patient_id, type_of_request='Laboratory')
             else:
                 raise exceptions.ValidationError(
                     {'Error': 'Please provide patient id'})
@@ -150,12 +150,12 @@ class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mix
         user = self.request.user
         patient_id = self.request.query_params.get('patient', None)
         if user.role == 'patient':
-            return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient__user=user)
+            return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient__user=user, type_of_request='Radiology')
         elif user.role == 'radiologist':
-            return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed')
+            return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', type_of_request='Radiology')
         elif user.role == 'doctor':
             if patient_id:
-                return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient=patient_id)
+                return ExamRequest.objects.prefetch_related('exams', 'radiolgy_request', 'radiolgy_request__exam', 'radiolgy_request__radiology_result').select_related('appointment', 'patient__user', 'doctor__user',).filter(status='Completed', patient=patient_id, type_of_request='Radiology')
             else:
                 raise exceptions.ValidationError(
                     {'Error': 'Please provide patient id'})
