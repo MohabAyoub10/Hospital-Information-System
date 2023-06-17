@@ -21,9 +21,10 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
                         'patient__user__username', 'company', 'number']
 
     def get_serializer_class(self):
-        if self.request.method == 'POST' or self.request.method == 'PUT':
+        if self.action == 'view':
+            return InsuranceDetailsSerializer
+        else:
             return CreateInsuranceDetailsSerializer
-        return InsuranceDetailsSerializer
 
     def get_queryset(self):
         user = self.request.user
@@ -43,9 +44,10 @@ class BillsViewSet(viewsets.ModelViewSet):
                      'patient__user__national_id', 'patient__user__phone_1']
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == 'view':
+            return BillsSerializer
+        else:
             return CreateBillsSerializer
-        return BillsSerializer
 
     def get_queryset(self):
         user = self.request.user
