@@ -11,6 +11,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from .permissions import *
 
+SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
+
 
 class InsuranceDetailsViewSet(viewsets.ModelViewSet):
     queryset = InsuranceDetails.objects.all()
@@ -21,7 +23,7 @@ class InsuranceDetailsViewSet(viewsets.ModelViewSet):
                         'patient__user__username', 'company', 'number']
 
     def get_serializer_class(self):
-        if self.action == 'view':
+        if self.request.method in SAFE_METHODS:
             return InsuranceDetailsSerializer
         else:
             return CreateInsuranceDetailsSerializer
@@ -44,7 +46,7 @@ class BillsViewSet(viewsets.ModelViewSet):
                      'patient__user__national_id', 'patient__user__phone_1']
 
     def get_serializer_class(self):
-        if self.action == 'view':
+        if self.request.method in SAFE_METHODS:
             return BillsSerializer
         else:
             return CreateBillsSerializer
