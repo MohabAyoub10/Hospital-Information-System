@@ -65,7 +65,10 @@ def create_prescription_service(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Bill)
 def update_bill_total(sender, instance, **kwargs):
-    if instance.insurance != None:
-        instance.total -= (instance.total *
-                           instance.insurance.coverage_percentage / 100)
+    if instance.insurance != None and instance.discount == 0.0:
+        coverage_percentage = Decimal(
+            str(instance.insurance.coverage_percentage / 100))
+        instance.discount = coverage_percentage
+        pprint(instance.discount)
+        instance.total -= instance.total * coverage_percentage
         instance.save()
