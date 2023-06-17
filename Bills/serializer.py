@@ -133,7 +133,7 @@ class BillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
         fields = ['id', 'patient', 'appointment', 'radiology_request',
-                  'lab_request', 'prescription', 'insurance', 'time_date', 'total']
+                  'lab_request', 'prescription', 'insurance', 'time_date', 'total', 'discount']
 
 
 class CreateBillsSerializer(serializers.ModelSerializer):

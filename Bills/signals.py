@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from .models import *
 from Lab_Radiology.models import *
 from Pharmacy.models import *
-from pprint import pprint 
+from pprint import pprint
 from decimal import Decimal
 
 
@@ -11,31 +11,36 @@ from decimal import Decimal
 def create_bill_service(sender, instance, **kwargs):
     if instance.status == 'waiting':
         if not Bill.objects.filter(patient=instance.patient, appointment=instance).exists():
-            bill = Bill.objects.create(patient=instance.patient, appointment=instance)
+            bill = Bill.objects.create(
+                patient=instance.patient, appointment=instance)
             bill.total = instance.slot.schedule.price
             bill.save()
-
 
 
 @receiver(post_save, sender=ExamRequest)
 def create_radiology_service(sender, instance, **kwargs):
     if instance.status == 'Pending' and instance.type_of_request == 'Radiology':
-        bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        bill = Bill.objects.filter(
+            patient=instance.patient, appointment=instance.appointment).first()
         if not bill:
-            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
-        else :
+            raise Exception(
+                'No bill found for the given patient and appointment, becuase the appointment is not booked yet')
+        else:
             bill.radiology_request = instance
             for exam in bill.radiology_request.exams.all():
                 bill.total += exam.price
             bill.save()
 
+
 @receiver(post_save, sender=ExamRequest)
 def create_lab_service(sender, instance, **kwargs):
     if instance.status == 'Pending' and instance.type_of_request == 'Laboratory':
-        bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        bill = Bill.objects.filter(
+            patient=instance.patient, appointment=instance.appointment).first()
         if not bill:
-            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
-        else :
+            raise Exception(
+                'No bill found for the given patient and appointment, becuase the appointment is not booked yet')
+        else:
             bill.lab_request = instance
             for exam in bill.lab_request.exams.all():
                 bill.total += exam.price
@@ -45,10 +50,12 @@ def create_lab_service(sender, instance, **kwargs):
 @receiver(post_save, sender=Prescription)
 def create_prescription_service(sender, instance, **kwargs):
     if instance.dispensed_status == 'send_to_pharmacy':
-        bill = Bill.objects.filter(patient=instance.patient, appointment=instance.appointment).first()
+        bill = Bill.objects.filter(
+            patient=instance.patient, appointment=instance.appointment).first()
         if not bill:
-            raise Exception('No bill found for the given patient and appointment, becuase the appointment is not booked yet')
-        else :
+            raise Exception(
+                'No bill found for the given patient and appointment, becuase the appointment is not booked yet')
+        else:
             bill.prescription = instance
             for item in instance.prescription.all():
                 if item.dispensed == True:
@@ -58,6 +65,7 @@ def create_prescription_service(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Bill)
 def update_bill_total(sender, instance, **kwargs):
-    if instance.discount != 0.0:
-        instance.total -= (instance.total * instance.discount / 100)
+    if instance.insurance != None:
+        instance.total -= (instance.total *
+                           instance.insurance.coverage_percentage / 100)
         instance.save()
