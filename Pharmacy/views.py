@@ -64,8 +64,7 @@ class DoctorPrescriptionViewSet(ModelViewSet):
         patient_id = self.request.query_params.get('patient', None)
         return Prescription.objects \
             .select_related('patient__user', 'doctor__user') \
-            .prefetch_related('prescription__drug') \
-            .filter(patient=patient_id).all()
+            .prefetch_related('prescription__drug').all()
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'POST']:
@@ -131,7 +130,8 @@ class PatientPrescriptionViewSet(ReadOnlyModelViewSet):
         patient_id = self.request.user.user_patient.id
         return Prescription.objects \
             .select_related('patient__user', 'doctor__user') \
-            .prefetch_related('prescription__drug').all()
+            .prefetch_related('prescription__drug') \
+            .filter(patient=patient_id).all()
     serializer_class = DoctorViewerPrescriptionSerializer
 
     def get_serializer_context(self):
