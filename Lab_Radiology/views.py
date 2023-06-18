@@ -119,7 +119,7 @@ class TestResutlByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mixins.R
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'patient__user__national_id',
                      'patient__user__phone_1', 'doctor__user__first_name', 'doctor__user__last_name']
-    filterset_fields = ['status', 'patient', 'doctor', 'exams__type']
+    filterset_fields = ['status', 'patient', 'doctor', 'exams__type', 'id']
     pagination_class = pagination.PageNumberPagination
 
     def get_queryset(self):
@@ -143,7 +143,7 @@ class RadiologyResultByRequestViewSet(GenericViewSet, mixins.ListModelMixin, mix
     search_fields = ['patient__user__first_name', 'patient__user__last_name', 'patient__user__national_id',
                      'patient__user__phone_1', 'doctor__user__first_name', 'doctor__user__last_name']
     permission_classes = [CanOnlyView]
-    filterset_fields = ['status', 'patient', 'doctor', 'exams__type']
+    filterset_fields = ['status', 'patient', 'doctor', 'exams__type', 'id']
     pagination_class = pagination.PageNumberPagination
 
     def get_queryset(self):
