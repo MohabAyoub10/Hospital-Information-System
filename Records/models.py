@@ -35,7 +35,7 @@ class EmergencyContact(models.Model):
     relative_relation = models.CharField(max_length=12, choices=relatives)
     national_id = models.CharField(max_length=14, unique=1)
     address = models.ForeignKey(
-        Address, related_name='emergency_contact_address', on_delete=models.CASCADE)
+        Address, related_name='emergency_contact_address', on_delete=models.CASCADE, null=1, blank=1)
 
     def __str__(self) -> str:
         try:
