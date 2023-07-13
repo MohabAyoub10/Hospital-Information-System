@@ -48,6 +48,8 @@ class ReceptionistEmergencyContactSerializer(serializers.ModelSerializer):
         address = Address(**address_data)
         address.save()
         instance.address = address
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
         instance.save()
         return instance
 
