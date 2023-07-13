@@ -11,3 +11,8 @@ static
 Pipfile
 Pipfile.lock
 files/
+Dockerfile
+.dockerignore
+fly.toml
+```
+

@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import environ
 from datetime import timedelta
 from pathlib import Path
-from  datetime import timedelta
+from datetime import timedelta
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +33,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://hospital-information-system-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://his.fly.dev']
 
 env = environ.Env()
 environ.Env.read_env()
@@ -100,11 +100,10 @@ WSGI_APPLICATION = 'HIS.wsgi.application'
 
 DEFAULT_FROM_EMAIL = 'hishospital521@gmail.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 
 
 DATABASES = {
@@ -148,7 +147,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-import os
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -164,23 +162,23 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE':5,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-   "ACCESS_TOKEN_LIFETIME": timedelta(days=50),
+    'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=50),
 }
- 
+
 DJOSER = {
     'SEND_CONFIRMATION_EMAIL': True,
-    'PERMISSIONS':{
-        'user_create':['Core.permissions.IsAdminOrReceptionist'],
-        'user_list':['Core.permissions.IsAdminOrReceptionist'],
+    'PERMISSIONS': {
+        'user_create': ['Core.permissions.IsAdminOrReceptionist'],
+        'user_list': ['Core.permissions.IsAdminOrReceptionist'],
     },
-    'SERIALIZERS':{
-        'user_create':'Core.serializer.UserCreateSerializer',
-        'current_user':'Core.serializer.UserSerializer'
+    'SERIALIZERS': {
+        'user_create': 'Core.serializer.UserCreateSerializer',
+        'current_user': 'Core.serializer.UserSerializer'
     }
 }
