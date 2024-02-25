@@ -128,6 +128,6 @@ http://127.0.0.1:8000/
 
 For any queries, collaborations, or feedback on the project, feel free to reach out through the following channel:
 
-- **LinkedIn**: [Mahmoud A. Fattah](https://www.linkedin.com/in/mahmoud-a-fattah/)
+- **LinkedIn**: [Mohab Ayoub](www.linkedin.com/in/mohabayoub10)
 
 Your input is highly appreciated, and we look forward to hearing from you!
